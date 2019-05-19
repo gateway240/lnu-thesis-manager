@@ -7,6 +7,10 @@
 # InteliJ files
 .idea
 
+# Build files
+target/
+out/
+
 # BlueJ files
 *.ctxt
 
