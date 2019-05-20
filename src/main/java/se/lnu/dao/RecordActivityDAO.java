@@ -1,6 +1,6 @@
 package se.lnu.dao;
 
-import se.lnu.entities.TAppActivityLog;
+import se.lnu.entity.TAppActivityLog;
 
 public interface RecordActivityDAO {
 
