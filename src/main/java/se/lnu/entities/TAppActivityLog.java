@@ -1,4 +1,4 @@
-package se.lnu.dao;
+package se.lnu.entities;
 
 import java.util.Date;
 

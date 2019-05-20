@@ -8,7 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import se.lnu.dao.RecordActivityDAOImpl;
-import se.lnu.dao.TAppActivityLog;
+import se.lnu.entities.TAppActivityLog;
 
 import java.util.Date;
 

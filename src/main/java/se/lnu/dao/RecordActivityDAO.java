@@ -1,9 +1,8 @@
 package se.lnu.dao;
 
-import java.sql.Connection;
+import se.lnu.entities.TAppActivityLog;
 
 public interface RecordActivityDAO {
-    Connection connect();
 
     void save(TAppActivityLog tAppActivityLog);
 
