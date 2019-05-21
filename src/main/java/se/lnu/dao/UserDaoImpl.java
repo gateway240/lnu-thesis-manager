@@ -2,7 +2,11 @@ package se.lnu.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import se.lnu.entity.Document;
+import se.lnu.entity.Role;
 import se.lnu.entity.User;
+import se.lnu.repository.DocumentRepository;
+import se.lnu.repository.RoleRepository;
 import se.lnu.repository.UserRepository;
 
 import javax.transaction.Transactional;
@@ -14,6 +18,11 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private DocumentRepository documentRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     @Transactional
@@ -23,7 +32,20 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     @Transactional
-    public void saveUser(User user) {
-        userRepository.save(user);
+    public Role saveRole(Role role) {
+        return roleRepository.save(role);
+    }
+
+    @Override
+    @Transactional
+    public User saveUser(User user) {
+        documentRepository.saveAll(user.getDocuments());
+        return userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public Document saveDocument(Document document) {
+        return documentRepository.save(document);
     }
 }

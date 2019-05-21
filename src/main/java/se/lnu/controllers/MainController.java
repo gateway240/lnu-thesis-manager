@@ -8,6 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import se.lnu.dao.UserDao;
+import se.lnu.entity.Document;
+import se.lnu.entity.Role;
 import se.lnu.entity.User;
 
 @RequestMapping("")
@@ -20,10 +22,20 @@ public class MainController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String printHello(ModelMap model) {
+        Role role = new Role();
+        role.setDescription("admin");
+        role = userDao.saveRole(role);
+
+        Document document = new Document();
+        document.setFilePath("/u01/test");
+        document.setTitle("TestDoc");
+
         User user = new User();
         user.setFirstName("John");
         user.setLastName("Smith");
-        user.setRole("admin");
+        user.setRole(role);
+        user.addDocument(document);
+
         userDao.saveUser(user);
 
 

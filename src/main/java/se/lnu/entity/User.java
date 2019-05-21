@@ -1,6 +1,8 @@
 package se.lnu.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User extends AbstractEntity {
@@ -9,7 +11,11 @@ public class User extends AbstractEntity {
 
     private String lastName;
 
-    private String role;
+    @ManyToOne
+    private Role role;
+
+    @OneToMany(mappedBy = "author")
+    private List<Document> documents = new ArrayList<>();
 
     public String getFirstName() {
         return firstName;
@@ -27,11 +33,20 @@ public class User extends AbstractEntity {
         this.lastName = lastName;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void addDocument(Document document){
+        this.documents.add(document);
+        document.setAuthor(this);
     }
 }

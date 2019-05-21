@@ -1,9 +1,17 @@
+CREATE TABLE IF NOT EXISTS role
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    description VARCHAR(200)
+);
 CREATE TABLE IF NOT EXISTS user
 (
     id    INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name VARCHAR(200),
     last_name  VARCHAR(200),
-    role       VARCHAR(100)
+    role       INTEGER,
+    CONSTRAINT fk_role
+        FOREIGN KEY (role)
+            REFERENCES role(id)
 
 );
 CREATE TABLE IF NOT EXISTS document
@@ -18,7 +26,8 @@ CREATE TABLE IF NOT EXISTS document
 );
 CREATE TABLE IF NOT EXISTS deadline
 (
-    name VARCHAR(100) PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(100),
     start_date DATETIME,
     end_date DATETIME
 )
