@@ -2,7 +2,6 @@ package se.lnu.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.lnu.entity.Document;
 import se.lnu.entity.Role;
 import se.lnu.entity.User;
 import se.lnu.repository.DocumentRepository;
@@ -43,9 +42,5 @@ public class UserDaoImpl implements UserDao {
         return userRepository.save(user);
     }
 
-    @Override
-    @Transactional
-    public Document saveDocument(Document document) {
-        return documentRepository.save(document);
-    }
+
 }

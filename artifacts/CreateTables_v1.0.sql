@@ -1,22 +1,22 @@
 CREATE TABLE IF NOT EXISTS role
 (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
     description VARCHAR(200)
 );
 CREATE TABLE IF NOT EXISTS user
 (
-    id    INTEGER PRIMARY KEY AUTOINCREMENT,
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name VARCHAR(200),
     last_name  VARCHAR(200),
     role       INTEGER,
     CONSTRAINT fk_role
         FOREIGN KEY (role)
-            REFERENCES role(id)
+            REFERENCES role (id)
 
 );
 CREATE TABLE IF NOT EXISTS document
 (
-    id    INTEGER PRIMARY KEY AUTOINCREMENT,
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
     title     VARCHAR(100),
     author    INTEGER,
     file_path VARCHAR(250),
@@ -24,10 +24,23 @@ CREATE TABLE IF NOT EXISTS document
         FOREIGN KEY (author)
             REFERENCES user (id)
 );
+CREATE TABLE IF NOT EXISTS feedback
+(
+    id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    feedback VARCHAR(2000),
+    reviewer INTEGER,
+    document INTEGER,
+    CONSTRAINT fk_reviewer
+        FOREIGN KEY (reviewer)
+            REFERENCES user (id),
+    CONSTRAINT fk_document
+        FOREIGN KEY (document)
+            REFERENCES document(id)
+);
 CREATE TABLE IF NOT EXISTS deadline
 (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(100),
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    name       VARCHAR(100),
     start_date DATETIME,
-    end_date DATETIME
+    end_date   DATETIME
 )
