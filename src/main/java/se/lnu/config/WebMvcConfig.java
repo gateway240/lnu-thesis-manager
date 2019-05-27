@@ -1,4 +1,5 @@
 package se.lnu.config;
+
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.context.annotation.ComponentScan;
@@ -30,5 +31,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry
                 .addResourceHandler("/resources/**")
                 .addResourceLocations("/resources/");
+    }
+    
+    
+    
+    /* method added by me ********/
+    @Bean(name = "fileStorageProperties")
+    public FileStorageProperties fileStorageProperties() {
+    	FileStorageProperties fileStoragePropereties = new FileStorageProperties();
+    	return fileStoragePropereties;
     }
 }
