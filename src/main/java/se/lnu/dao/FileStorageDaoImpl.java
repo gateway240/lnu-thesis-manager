@@ -1,5 +1,17 @@
 package se.lnu.dao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import se.lnu.exception.FileStorageException;
+import se.lnu.exception.MyFileNotFoundException;
+import se.lnu.utils.DocConstants;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,36 +21,22 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import org.springframework.core.io.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import se.lnu.config.FileStorageProperties;
-import se.lnu.exception.FileStorageException;
-import se.lnu.exception.MyFileNotFoundException;
-import se.lnu.utils.DocConstants;
-
-import org.springframework.util.StringUtils;
-
 @Service
 public class FileStorageDaoImpl implements FileStorageDao {
+	private final static Logger LOG = LoggerFactory.getLogger(FileStorageDaoImpl.class);
 	
 	private final Path fileStorageLocation;
-	
-	// the constructor is autowired so it will create the folder when the application starts
-	@Autowired
-	public FileStorageDaoImpl(FileStorageProperties fileStorageProperties) {
-		this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath().normalize(); // blir fel
+
+	public FileStorageDaoImpl(@Value("${file.upload-dir}") String uploadDir) {
+		LOG.debug("Upload Dir: "+ uploadDir);
+		this.fileStorageLocation = Paths.get(uploadDir).toAbsolutePath().normalize(); // blir fel
 
 		try {
 			// when application start the upload folder is created
 			Files.createDirectories(this.fileStorageLocation);
 		} catch (Exception ex) {
+			LOG.error(ex.getMessage());
+			// TODO: Throwing exception in the constructor is risky. Consider handling exception in other ways.
 			throw new FileStorageException(DocConstants.FILE_STORAGE_EXCEPTION_PATH_NOT_FOUND, ex);
 		}
 	}

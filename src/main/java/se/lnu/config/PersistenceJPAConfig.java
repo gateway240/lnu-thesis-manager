@@ -20,9 +20,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({
-        "classpath:database.properties"
+@PropertySources({
+        @PropertySource({
+                "classpath:database.properties"
+        }),
+        @PropertySource({
+                "classpath:document.properties"
+        })
 })
+
 @ComponentScan({"se.lnu.dao"})
 @EnableJpaRepositories(basePackages = "se.lnu.repository")
 public class PersistenceJPAConfig {
@@ -47,7 +53,7 @@ public class PersistenceJPAConfig {
         return entityManagerFactoryBean;
     }
 
-    private final Properties additionalProperties() {
+    private Properties additionalProperties() {
         final Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
