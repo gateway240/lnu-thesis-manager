@@ -12,6 +12,7 @@ import java.nio.file.StandardCopyOption;
 import org.springframework.core.io.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ import se.lnu.utils.DocConstants;
 import org.springframework.util.StringUtils;
 
 @Service
-public class FileStorageDaoImpl {
+public class FileStorageDaoImpl implements FileStorageDao {
 	
 	private final Path fileStorageLocation;
 	
@@ -42,6 +43,7 @@ public class FileStorageDaoImpl {
 		}
 	}
 
+	@Override
 	public String storeFile(MultipartFile file) throws IOException {
 		
 		if (!(file.getOriginalFilename().endsWith(DocConstants.PDF_FILE_FORMAT)))
@@ -72,6 +74,7 @@ public class FileStorageDaoImpl {
 
 	}
 	
+	@Override
 	public Resource loadFileAsResource(String fileName) {
 		try {
 			Path filePath = this.fileStorageLocation.resolve(fileName).normalize();

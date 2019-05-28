@@ -1,5 +1,6 @@
 package se.lnu.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import se.lnu.utils.DocConstants;
@@ -13,7 +14,7 @@ public class FileStorageProperties {
 	public String getUploadDir() {
 		return uploadDir;
 	}
-
+	
 	public void setUploadDir(String uploadDir) {
 		this.uploadDir = uploadDir;
 	}
