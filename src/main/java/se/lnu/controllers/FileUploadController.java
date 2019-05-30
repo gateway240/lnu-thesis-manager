@@ -53,25 +53,17 @@ public class FileUploadController {
 			bout.flush();
 			bout.close();
 			
-			/* Added by cw after the push to github*/
 			Document document = new Document();
-	        document.setFilePath(path+"/"+filename);
-	        document.setTitle(title);
+			document.setFilePath(path+"/"+filename);
+			document.setTitle(title);
 	        //document.setAuthor(author);
 	        
 	        DocumentDao.saveDocument(document);
-	        
-	        ////////////////////////////////////////////
-			
+	        	
 		} catch(Exception e) {
 			System.out.println(e);
 		}
-		
-        
-        
-        /////////////////////////////////////////////////////
-		
-		
+			
 		return new ModelAndView("upload-success", "filename", path+"/"+filename);
 		
 	}
