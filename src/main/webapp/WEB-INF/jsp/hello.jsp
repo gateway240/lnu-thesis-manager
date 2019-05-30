@@ -5,5 +5,8 @@
 </head>
 <body>
 <h2>${message}</h2>
+
+<a href="http://localhost:8080/lnu-thesis-manager/download/pdf/rapport.pdf">Test to download rapport.pdf</a>
+
 </body>
 </html>

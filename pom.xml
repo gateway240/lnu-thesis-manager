@@ -62,21 +62,21 @@
             <version>2.1.0.RELEASE</version>
         </dependency>
         
-        <!-- **************** Spring boot dependency added by me ************* -->
+        <!-- **************** Spring boot dependency added by cw ************* -->
         <dependency> 
   			<groupId>org.springframework.boot</groupId>
   			<artifactId>spring-boot-autoconfigure</artifactId>
   			<version>2.1.2.RELEASE</version> 
 		</dependency> 
 		
-		<!-- *************** Faster jackson core dependency added by me ******** -->
+		<!-- *************** Faster jackson core dependency added by cw ******** -->
 		 <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.0</version>
         </dependency>
         
-        <!-- *************** fileupload added by me ****************************** -->
+        <!-- *************** fileupload added by cw ****************************** -->
         
         <dependency>
     		<groupId>commons-fileupload</groupId>
@@ -143,15 +143,18 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-             <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
-                    <configuration>
-                        <path>/</path>
-                        <contextReloadable>true</contextReloadable>
-                    </configuration>
-                </plugin>
+            <plugin>
+			   <groupId>org.apache.tomcat.maven</groupId>
+			   <artifactId>tomcat7-maven-plugin</artifactId>
+			   <version>2.2</version>
+			   <configuration>
+			     <url>http://localhost:8080/manager/text</url>
+			     <server>TomcatServer</server>
+			     <path>/lnu-thesis-manager</path>
+			     <username>admin</username>
+			     <password>password</password>
+   </configuration>
+</plugin>
         </plugins>
     </build>
 
