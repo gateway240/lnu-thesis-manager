@@ -33,10 +33,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 })
 
 public class WebMvcConfig implements WebMvcConfigurer {
-	
+
     @Autowired
     private Environment env;
-    
+
     @Autowired
     DataSource dataSource;
 
@@ -64,15 +64,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     //UNCOMMENT FOR SQL
-//    @Bean
-//    public DataSource dataSource() {
-//        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("jdbc.driverClassName")));
-//        dataSource.setUrl(ConnectionFactory.getURL());
-//        dataSource.setUsername(env.getProperty("jdbc.user"));
-//        dataSource.setPassword(env.getProperty("jdbc.pass"));
-//        return dataSource;
-//    }
+    @Bean
+    public DataSource dataSource() {
+        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("jdbc.driverClassName")));
+        dataSource.setUrl(ConnectionFactory.getURL());
+        dataSource.setUsername(env.getProperty("jdbc.user"));
+        dataSource.setPassword(env.getProperty("jdbc.pass"));
+        return dataSource;
+    }
 
     @Bean
     public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
@@ -85,22 +85,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
-	
+
 	@Bean
 	public NamedParameterJdbcTemplate geNamedParameterJdbcTemplate(){
 		return new NamedParameterJdbcTemplate(dataSource);
 	}
-	
+
 	// VIA MYSQL DB
-	@Bean
-	public DataSource getDataSource(){
-		DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setDriverClassName("com.mysql.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://localhost:3306/thesis?serverTimezone=UTC");
-		ds.setUsername("root");
-		ds.setPassword("2DV603SE");
-	  return ds;
-	}
+//	@Bean
+//	public DataSource getDataSource(){
+//		DriverManagerDataSource ds = new DriverManagerDataSource();
+//		ds.setDriverClassName("com.mysql.jdbc.Driver");
+//		ds.setUrl("jdbc:mysql://localhost:3306/thesis?serverTimezone=UTC");
+//		ds.setUsername("root");
+//		ds.setPassword("2DV603SE");
+//	  return ds;
+//	}
 
     @Bean
     public InternalResourceViewResolver resolver() {

@@ -1,6 +1,7 @@
 package se.lnu.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import se.lnu.entity.Document;
 import se.lnu.entity.Feedback;
@@ -15,9 +16,11 @@ import java.util.List;
 public class DocumentDaoImpl implements DocumentDao {
 
     @Autowired
+    @Qualifier("documentRepository")
     private DocumentRepository documentRepository;
 
     @Autowired
+    @Qualifier("feedbackRepository")
     private FeedbackRepository feedbackRepository;
 
     @Override
