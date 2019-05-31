@@ -8,7 +8,8 @@
  <body>  
 <h1>File Upload Example</h1>  
   
-<h3 style="color:red">${filesuccess}</h3>  
+<h3 style="color:red">${filesuccess}</h3>
+<p>${errorMessage}<p>  
 <form:form method="post" action="uploadFile" enctype="multipart/form-data">
 <p><label for="image">Choose File:</label></p>  
 <p><input name="file" id="fileToUpload" type="file" /></p>

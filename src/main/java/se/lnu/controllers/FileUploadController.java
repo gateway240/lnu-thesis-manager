@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +34,12 @@ public class FileUploadController {
 	}
 	// CommonsMultipartFile implementation for Apache Commons FileUpload.
 	@RequestMapping(value="/uploadFile", method=RequestMethod.POST)
-	public ModelAndView upload(@RequestParam CommonsMultipartFile file, HttpSession session, @RequestParam String title) {
+	public ModelAndView upload(@RequestParam CommonsMultipartFile file, HttpSession session, @RequestParam String title, ModelMap model) {
+		
+		if(!(file.getOriginalFilename().endsWith(".pdf"))) {
+			model.addAttribute("errorMessage", "Only PDF-files are allowed");
+			return new ModelAndView("upload-form");
+		}
 
 		// get applications root 
 		String path = session.getServletContext().getRealPath("/WEB-INF/downloads/pdf");
@@ -53,9 +59,11 @@ public class FileUploadController {
 			bout.flush();
 			bout.close();
 			
+			// Saves the document to the database
 			Document document = new Document();
 			document.setFilePath(path+"/"+filename);
 			document.setTitle(title);
+			// set athor to the logged in users id
 	        //document.setAuthor(author);
 	        
 	        DocumentDao.saveDocument(document);
