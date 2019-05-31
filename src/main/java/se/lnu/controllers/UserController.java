@@ -32,18 +32,18 @@ public class UserController {
 		  return model;
 	 }
 	 
-	 @RequestMapping(value="/changePass/{username}", method=RequestMethod.GET)
-	 public ModelAndView changePass(@PathVariable("username") String username){
-		  ModelAndView model = new ModelAndView("user/change_pass");
+	 @RequestMapping(value="/setGrade/{username}", method=RequestMethod.GET)
+	 public ModelAndView setGrade(@PathVariable("username") String username){
+		  ModelAndView model = new ModelAndView("user/set_grade");
 		  model.addObject("user", userService.findUserByUsername(username));
 		  return model;
 	 }
 	 
 	 @RequestMapping(value="/save", method=RequestMethod.POST)
 	 public ModelAndView save(@ModelAttribute("user") UserInfo user){
-		  ModelAndView model = changePass(user.getUsername());
+		  ModelAndView model = setGrade(user.getUsername());
 		  userService.update(user.getUsername(), user.getPassword());
-		  model.addObject("msg", "Your password has been changed successfully!");
+		  model.addObject("msg", "The grade has been set successfully!");
 		  return model;
 	 }
 	 
