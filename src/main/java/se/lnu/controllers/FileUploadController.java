@@ -43,7 +43,10 @@ public class FileUploadController {
 
 		// get applications root 
 		String path = session.getServletContext().getRealPath("/WEB-INF/downloads/pdf");
-		String filename = file.getOriginalFilename();
+		//String filename = file.getOriginalFilename();
+		
+		// Makes the file path unique
+		String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 		
 		System.out.println(path + " " + filename);
 		
