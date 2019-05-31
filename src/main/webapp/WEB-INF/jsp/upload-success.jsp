@@ -9,6 +9,7 @@
 <body>
 	<h1>Upload success!</h1>
 	<a href="http://localhost/thisisatest"><h2>"${filename}"</h2></a>
+	<a href="${filename}"><h2>http://localhost/thisisatest</h2></a>
 
 </body>
 </html>

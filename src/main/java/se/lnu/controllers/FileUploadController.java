@@ -28,7 +28,7 @@ public class FileUploadController {
 	@Autowired
     private DocumentDao DocumentDao;
 	
-	@RequestMapping("/uploadForm")
+	@RequestMapping(value = "/uploadForm", method=RequestMethod.GET)
 	public ModelAndView uploadForm() {
 		return new ModelAndView("upload-form");
 	}
