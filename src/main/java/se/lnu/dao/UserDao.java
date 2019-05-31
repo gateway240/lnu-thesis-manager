@@ -9,7 +9,8 @@ import java.util.List;
 public interface UserDao {
 
 	User getUserByUsername(String username);
-//    List<User> getUsers();
+    List<User> getUsers();
+    List<User> getUsersByRole(String Role);
 //    User saveUser(User user);
 //    Role saveRole(Role role);
 	 public List<?> list();

@@ -13,16 +13,18 @@ public class Role  {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String username;
+    @ManyToOne()
+    @JoinColumn(name = "username")
+    private User user;
 
     private String role;
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getRole() {

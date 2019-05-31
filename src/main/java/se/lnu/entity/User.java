@@ -25,8 +25,9 @@ public class User {
 
     private Boolean enabled;
 
-//    @ManyToOne
-//    private Role role;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="username")
+    private List<Role> roles;
 
     @OneToMany(mappedBy = "author")
     private List<Document> documents = new ArrayList<>();
@@ -79,13 +80,13 @@ public class User {
         this.enabled = enabled;
     }
 
-//    public Role getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(Role role) {
-//        this.role = role;
-//    }
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public List<Document> getDocuments() {
         return documents;

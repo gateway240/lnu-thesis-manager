@@ -7,11 +7,11 @@ CREATE TABLE users
 (
     first_name VARCHAR(200),
     last_name  VARCHAR(200),
-    role       VARCHAR(100),
     email      VARCHAR(200),
     username VARCHAR(50)  NOT NULL,
     password VARCHAR(255) NOT NULL,
     enabled  TINYINT      NOT NULL DEFAULT 1,
+    CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username),
     PRIMARY KEY (username)
 );
 

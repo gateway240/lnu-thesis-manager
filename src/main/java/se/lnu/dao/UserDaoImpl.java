@@ -3,7 +3,11 @@ package se.lnu.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,18 +24,22 @@ import org.springframework.stereotype.Repository;
 //import se.lnu.repository.UserRepository;
 //
 //import javax.transaction.Transactional;
+import se.lnu.controllers.UserController;
 import se.lnu.entity.User;
 import se.lnu.model.UserInfo;
 import se.lnu.repository.UserRepository;
 
+import javax.transaction.Transactional;
+
 @Repository
 public class UserDaoImpl implements UserDao {
-
+	final static Logger LOG = LoggerFactory.getLogger(UserDaoImpl.class);
     @Autowired
 	@Qualifier("userRepository")
     private UserRepository userRepository;
 
 	@Override
+	@Transactional
 	public User getUserByUsername(String username) {
 		return userRepository.findUserByUsername(username);
 	}
@@ -43,12 +51,29 @@ public class UserDaoImpl implements UserDao {
 //    @Autowired
 //    private RoleRepository roleRepository;
 //
-//    @Override
-//    @Transactional
-//    public List<User> getUsers() {
-//        return userRepository.findAll();
-//    }
-//
+    @Override
+    @Transactional
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
+
+	@Override
+	public List<User> getUsersByRole(String role) {
+		List<User> allUsers = getUsers();
+		List<User> filteredUsers = new ArrayList<>();
+		allUsers.forEach( user -> {
+			LOG.info("Role Desired: " + role);
+			LOG.info("Role of Current User: " + user.getRoles().get(0).getRole());
+			user.getRoles().forEach( localRole -> {
+				if(localRole.getRole().equals(role)){
+					filteredUsers.add(user);
+					return;
+				}
+			});
+		});
+		return filteredUsers;
+	}
+	//
 //    @Override
 //    @Transactional
 //    public Role saveRole(Role role) {
