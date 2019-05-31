@@ -2,7 +2,6 @@ package se.lnu.controllers;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +39,19 @@ public class FileUploadController {
 			model.addAttribute("errorMessage", "Only PDF-files are allowed");
 			return new ModelAndView("upload-form");
 		}
+		if(title.isEmpty()) {
+			model.addAttribute("errorMessage", "Please enter a title for the document");
+			return new ModelAndView("upload-form");
+			
+		}
 
 		// get applications root 
 		String path = session.getServletContext().getRealPath("/WEB-INF/downloads/pdf");
-		//String filename = file.getOriginalFilename();
 		
 		// Makes the file path unique
 		String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-		
-		System.out.println(path + " " + filename);
+			
+		String downloadURL = "";
 		
 		try {
 			
@@ -66,16 +69,23 @@ public class FileUploadController {
 			Document document = new Document();
 			document.setFilePath(path+"/"+filename);
 			document.setTitle(title);
-			// set athor to the logged in users id
+			document.setFileName(filename);
+			// set author to the logged in users id
 	        //document.setAuthor(author);
+			
+			// Hardcoded url to localhost for now
+			downloadURL = "http://localhost:8080/lnu-thesis-manager/download/pdf/" + filename;
+			document.setDownloadURL(downloadURL);
+			
+			model.addAttribute("title", title);
 	        
 	        DocumentDao.saveDocument(document);
-	        	
+	         	
 		} catch(Exception e) {
 			System.out.println(e);
 		}
 			
-		return new ModelAndView("upload-success", "filename", path+"/"+filename);
+		return new ModelAndView("upload-success", "downloadURL", downloadURL);
 		
 	}
 }

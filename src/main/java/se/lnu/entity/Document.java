@@ -10,6 +10,10 @@ public class Document extends AbstractEntity {
     private String title;
 
     private String filePath;
+  
+    private String fileName;
+    
+    private String downloadURL;
 
     @ManyToOne
     @JoinColumn(name = "author")
@@ -38,4 +42,20 @@ public class Document extends AbstractEntity {
     public void setAuthor(User author) {
         this.author = author;
     }
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getDownloadURL() {
+		return downloadURL;
+	}
+
+	public void setDownloadURL(String downloadURL) {
+		this.downloadURL = downloadURL;
+	}
 }

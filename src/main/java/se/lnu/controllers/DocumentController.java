@@ -37,8 +37,5 @@ public class DocumentController {
 	public List<Document> getAllDocuments() {
     	
 		return DocumentDao.viewAllDocuments();
-	}
-    
-    
-    
+	} 
 }
