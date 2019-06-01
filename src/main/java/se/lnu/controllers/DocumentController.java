@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import se.lnu.dao.DocumentDao;
 import se.lnu.entity.Document;
@@ -19,7 +20,7 @@ import se.lnu.entity.Feedback;
 
 
 @RequestMapping("/document") 
-@Controller
+@RestController
 public class DocumentController {
     final static Logger LOG = LoggerFactory.getLogger(DocumentController.class);
     
@@ -31,11 +32,18 @@ public class DocumentController {
 
         return null;
     }
-    
+   
     @RequestMapping(value="/getAllDocuments", method=RequestMethod.GET)
-    @ResponseBody
-	public List<Document> getAllDocuments() {
-    	
-		return DocumentDao.viewAllDocuments();
-	} 
+    public ModelAndView getAllDocuments() {
+        	
+       	List<Document> docs = new ArrayList<>();
+       		
+       	docs = DocumentDao.viewAllDocuments();
+       	
+    	ModelAndView modelAndView = new ModelAndView("document");
+    	modelAndView.addObject("docs", docs);
+       	
+       	return modelAndView;
+    }
+        
 }

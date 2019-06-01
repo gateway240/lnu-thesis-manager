@@ -58,4 +58,8 @@ public class Document extends AbstractEntity {
 	public void setDownloadURL(String downloadURL) {
 		this.downloadURL = downloadURL;
 	}
+	@Override
+	public String toString(){
+	      return "title : " + title + " filePath : " + filePath + " author : " + author + " fileName : " + fileName + " downloadURL : " + downloadURL;
+	} 
 }
