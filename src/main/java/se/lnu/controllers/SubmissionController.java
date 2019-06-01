@@ -5,20 +5,24 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import se.lnu.dao.DeadlineDao;
+import se.lnu.dao.SubmissionDao;
 import se.lnu.dao.UserDao;
 import se.lnu.entity.Document;
 import se.lnu.entity.Submission;
 import se.lnu.entity.User;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
+import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -39,6 +43,9 @@ public class SubmissionController {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private SubmissionDao submissionDao;
+
     @RequestMapping("/uploadForm")
     public ModelAndView uploadForm() {
         return new ModelAndView("upload-form");
@@ -47,26 +54,34 @@ public class SubmissionController {
     @RequestMapping(value = "/submitDocument", method = RequestMethod.GET)
     public String loadSubmitDocument(ModelMap map) {
         User authenticatedUser = userDao.getCurrentAuthenticatedUser();
+
+        Submission submission = new Submission();
+
+        map.addAttribute("submission",submission);
+        map.addAttribute("deadlines", deadlineDao.findAllDeadlines());
         map.addAttribute("documents", documentDao.getDocumentsByUsername(authenticatedUser));
 
-
-
         return "submission/submitDocument";
     }
 
-    @RequestMapping(value = "/addSubmission", method = RequestMethod.GET)
-    public String loadAddSubmission(@RequestParam(value = "document")Integer documentId,ModelMap map){
-        Submission submission = new Submission();
-        map.addAttribute("submission",new Submission());
-        map.addAttribute("deadlines", deadlineDao.findAllDeadlines());
-        Optional<Document> document = documentDao.getDocumentById(documentId);
-        return "submission/addSubmission";
-    }
+//    @RequestMapping(value = "/addSubmission", method = RequestMethod.GET)
+//    public String loadAddSubmission(@RequestParam(value = "document")Integer documentId,ModelMap map){
+//
+////        Optional<Document> document = documentDao.getDocumentById(documentId);
+//
+////        submission.setDocument(document.get());
+//
+//
+//        return "submission/addSubmission";
+//    }
     @RequestMapping(value = "/addSubmission/submit", method = RequestMethod.POST)
-    public String addSubmission( ModelMap map){
+    public String addSubmission(@Valid @ModelAttribute("submission") Submission submission){
+        submission.setDate(new Date());
+        User authenticatedUser = userDao.getCurrentAuthenticatedUser();
+        submission.setUser(authenticatedUser);
+        submissionDao.saveSubmission(submission);
 
-
-        return "submission/submitDocument";
+        return "home/home";
     }
     // CommonsMultipartFile implementation for Apache Commons FileUpload.
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)

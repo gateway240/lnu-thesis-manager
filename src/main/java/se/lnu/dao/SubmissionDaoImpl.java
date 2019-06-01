@@ -7,6 +7,7 @@ import se.lnu.entity.Submission;
 import se.lnu.repository.SubmissionRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class SubmissionDaoImpl implements SubmissionDao {
@@ -19,5 +20,11 @@ public class SubmissionDaoImpl implements SubmissionDao {
     @Transactional
     public Submission saveSubmission(Submission submission) {
         return submissionRepository.save(submission);
+    }
+
+    @Override
+    @Transactional
+    public List<Submission> getAllSubmissions() {
+        return submissionRepository.findAll();
     }
 }

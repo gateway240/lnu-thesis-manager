@@ -10,6 +10,7 @@ import java.util.Date;
 public class Submission extends AbstractEntity {
 
     @ManyToOne
+    @JoinColumn(name = "user")
     private User user;
 
     private String title;
@@ -17,9 +18,11 @@ public class Submission extends AbstractEntity {
     private String degree;
 
     @OneToOne
+    @JoinColumn(name = "document")
     private Document document;
 
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name = "deadline")
     private Deadline deadline;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")

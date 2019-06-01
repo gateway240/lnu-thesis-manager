@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import se.lnu.dao.SubmissionDao;
 import se.lnu.dao.UserDao;
 import se.lnu.entity.User;
 import se.lnu.form.UserForm;
@@ -31,6 +32,9 @@ public class UserController {
     UserService userService;
 
     @Autowired
+    SubmissionDao submissionDao;
+
+    @Autowired
     UserDao userDao;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -49,7 +53,7 @@ public class UserController {
 	 @RequestMapping(value="/submissions", method=RequestMethod.GET)
 	 public ModelAndView submissions(){
 		  ModelAndView model = new ModelAndView("user/submissions");
-		  model.addObject("submissions", userService.list());
+		  model.addObject("submissions", submissionDao.getAllSubmissions());
 		  return model;
 	 }
 	 

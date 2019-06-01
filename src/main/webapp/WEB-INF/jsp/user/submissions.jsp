@@ -61,17 +61,17 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <c:forEach items="${list}" var="user">
+			    <c:forEach items="${submissions}" var="submission">
 			    <tr>
-			      <td><spring:url value="/user/viewDocument" var="viewDocumentURL"/><a href="${viewDocumentURL}/${document.title}">View</a></td>
-			      <td>${user.username}</td>
-			      <td>${document.title}</td>
-			      <td>${document.degree}</td>
-			      <td>${document.category}</td>
-			      <td>${document.supervisor}</td>
-			      <td>${document.coordinator}</td>
-			      <td>${document.submissionDate}</td>
-			      <td>${document.deadline}</td>
+			      <td><spring:url value="/user/viewDocument" var="viewDocumentURL"/><a href="${viewDocumentURL}/${submission.document.title}">View</a></td>
+			      <td>${submission.user.username}</td>
+			      <td>${submission.title}</td>
+			      <td>${submission.degree}</td>
+			      <td>${submission.document.category}</td>
+			      <td>${submission.user.username}</td>
+			      <td>${submission.user.username}</td>
+			      <td>${submission.date}</td>
+			      <td>${submission.deadline.name}</td>
 			    </tr>
 			    </c:forEach>
 			  </tbody>

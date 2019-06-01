@@ -29,10 +29,10 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "author")
     private List<Document> documents = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "user")
     private List<Submission> submissions = new ArrayList<>();
 
     @ManyToMany

@@ -29,7 +29,7 @@
 						<th scope="col">Author</th>
 						<th scope="col">Path</th>
 						<th scope="col">Category</th>
-						<th scope="col">Action</th>
+						<%--<th scope="col">Action</th>--%>
 					</tr>
 					</thead>
 					<tbody>
@@ -39,7 +39,7 @@
 							<td>${document.author.username}</td>
 							<td>${document.filePath}</td>
 							<td>${document.category}</td>
-							<td><spring:url value="/submission/addSubmission" var="addSubmissionURL"/><a href="${addSubmissionURL}?document=${document.id}">Submit Document</a></td>
+							<%--<td><spring:url value="/submission/addSubmission" var="addSubmissionURL"/><a href="${addSubmissionURL}?document=${document.id}">Submit Document</a></td>--%>
 
 						</tr>
 						<%--<tr>--%>
@@ -53,6 +53,36 @@
 				</table>
 				<%--<input type="submit" value="Save" />--%>
 			</form:form>
+			<h1>Add Submission</h1>
+			<form:form method="POST" action="${contextPath}/submission/addSubmission/submit" modelAttribute="submission">
+				<div class="form-group text-left">
+					<div class="form-group text-left">
+						<form:label path="title">Title</form:label>
+						<form:input class="form-control" path="title"></form:input>
+
+					</div>
+					<div class="form-group text-left">
+						<form:label path="degree">Degree</form:label>
+						<form:input class="form-control" path="degree"></form:input>
+					</div>
+					<div class="form-group text-left">
+						<form:label path="document">Document</form:label>
+						<form:select path="document.id" multiple="multiple" >
+							<form:options items="${documents}" itemValue="id" itemLabel="title"></form:options>
+						</form:select>
+					</div>
+					<div class="form-group text-left">
+						<form:label path="deadline">Deadline</form:label>
+						<form:select path="deadline.id" multiple="multiple" >
+							<form:options items="${deadlines}" itemValue="id" itemLabel="name"></form:options>
+						</form:select>
+					</div>
+
+				</div>
+
+				<input type="submit" class="btn btn-dark" value="Submit"/>
+			</form:form>
+
 
 		</div>
 	</body>  
