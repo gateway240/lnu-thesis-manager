@@ -21,7 +21,7 @@
 			    <ul class="navbar-nav">
 			    
 			      <li class="nav-item">
-			        <a class="nav-link" href='<c:url value="/home" />'>Home</a>
+			        <a class="nav-link" href='<c:url value="/home" />'>Back</a>
 			      </li>
 			    
 			    </ul>

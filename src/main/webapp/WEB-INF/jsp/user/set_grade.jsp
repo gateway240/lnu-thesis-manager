@@ -16,20 +16,7 @@
 	
 	<body class="d-flex flex-column h-100">
 	<spring:url value="/user/save" var="saveURL" />
-		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-			<div class="collapse navbar-collapse" id="navbarNavDropdown">
-			    <ul class="navbar-nav">
-			    
-			      <li class="nav-item">
-			        <a class="nav-link" href='<c:url value="/logout" />'>Logout</a>
-			      </li>
-			      
-			      <li class="nav-item">
-			        <a class="nav-link active" href='<c:url value="/user/list" />'>Set Grade</a>
-			      </li>
-			    </ul>
-		  	</div>	
-		</nav>
+		<jsp:include page="../nav.jsp"></jsp:include>
 	
 		<div class="container text-center">
 			<form:form method="post" modelAttribute="user" action="${saveURL}">

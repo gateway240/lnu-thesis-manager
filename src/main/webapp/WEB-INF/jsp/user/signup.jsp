@@ -60,39 +60,38 @@
 <%-- 		<c:url value='/registration' var="loginVar" />
 		<form name='registration' id='registration' action="${loginVar}" method='POST'> --%>
 		<form:form action="${registerURL}" modelAttribute="userForm" method="post">
-<!-- 		  <div class="form-group"> -->
-<!-- 		    <label for="firstname">First Name</label> -->
-<%-- 		    <form:input path="firstname" type="text" class="form-control" name="firstname" /> --%>
-<%-- 		    <form:errors path="firstname" /> --%>
-<!-- 		  </div> -->
-		  
-<!-- 		  <div class="form-group"> -->
-<!-- 		    <label for="lastname">Last Name</label> -->
-<%-- 		    <form:input path="lastname" type="text" class="form-control" name="lastname" /> --%>
-<%-- 		    <form:errors path="lastname" /> --%>
-<!-- 		  </div> -->
+		  <div class="form-group">
+		    <label for="firstname">First Name</label>
+		    <form:input path="firstname" type="text" class="form-control" name="firstname" />
+		    <form:errors path="firstname" />
+		  </div>
 		  
 		  <div class="form-group">
-		    <label for="username">Username</label>
+		    <label for="lastname">Last Name</label>
+		    <form:input path="lastname" type="text" class="form-control" name="lastname" />
+		    <form:errors path="lastname" />
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="username">Username (on Slack)</label>
 		    <form:input path="username" type="text" class="form-control" name="username" />
 		    <form:errors path="username" />
 		  </div>
 		  
 		  <div class="form-group">
 		      <label for="role">Role</label>
-		      <select name="role" class="form-control">
-		        <option selected>Choose your role</option>
-		        <option value="student">Student</option>
-		        <option value="supervisor">Supervisor</option>
-		        <option value="coordinator">Coordinator</option>
-		      </select>
+		      <form:select name="role" class="form-control" path="role">
+		        <form:option value="ROLE_USER">Student</form:option>
+		        <form:option value="ROLE_SUPERVISOR">Supervisor</form:option>
+		        <form:option value="ROLE_ADMIN" selected="selected">Coordinator</form:option>
+		      </form:select>
 		  </div>
 		  
-<!-- 		  <div class="form-group"> -->
-<!-- 		    <label for=email>Email</label> -->
-<%-- 		    <form:input path="email" type="text" class="form-control" name="email" /> --%>
-<%-- 		    <form:errors path="email" /> --%>
-<!-- 		  </div> -->
+		  <div class="form-group">
+		    <label for=email>Email</label>
+		    <form:input path="email" type="text" class="form-control" name="email" />
+		    <form:errors path="email" />
+		  </div>
 		  
 		  <div class="form-group">
 		    <label for="password">Password</label>
@@ -106,7 +105,7 @@
   			<form:errors path="confirmPassword" />
 		  </div>
 
-		  <button type="submit" class="btn btn-primary">Submit</button>
+		  <input type="submit" value="Submit" class="btn btn-primary"/>
 <%-- 		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
 		</form:form>
 		</div>

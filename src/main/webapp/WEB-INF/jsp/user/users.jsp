@@ -17,6 +17,15 @@
 		<jsp:include page="../nav.jsp"></jsp:include>
 	
 		<div class="container text-center">
+			<h1>Users</h1>
+			
+			<select class="form-group browser-default custom-select custom-select-lg mb-3">
+			  <option selected>Filter by role</option>
+			  <option value="student">Student</option>
+			  <option value="supervisor">Supervisor</option>
+			  <option value="coordinator">Coordinator</option>
+			</select>
+			  
 			<table class="table">
 			  <thead class="thead-dark">
 			    <tr>
@@ -24,10 +33,9 @@
 	<!-- 		      <th scope="col">Lastname</th> -->
 			      <th scope="col">Username</th>
 	<!-- 		      <th scope="col">Email</th> -->
-	<!-- 		      <th scope="col">Coordinator</th> -->
-	<!-- 		      <th scope="col">Supervisor</th> -->
-				  <th scope="col">Action</th>
-				  <th scope="col">Grade</th>
+	<!-- 		      <th scope="col">Role</th> -->
+<!-- 				  <th scope="col">Action</th> -->
+			
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -37,13 +45,10 @@
 	<%-- 		      <td>${user.lastname}</td> --%>
 			      <td>${user.username}</td>
 	<%-- 		      <td>${user.email}</td> --%>
-	<%-- 		      <td>${user.coordinator}</td> --%>
-	<%-- 		      <td>${user.supervisor}</td> --%>
-			      <td><spring:url value="/user/setGrade" var="setGradeURL"/><a href="${setGradeURL}/${user.username}">Set Grade</a></td>
+	<%-- 		      <td>${user.role}</td> --%>
+<%-- 			      <td><spring:url value="/user/setGrade" var="setGradeURL"/><a href="${setGradeURL}/${user.username}">Set Grade</a></td> --%>
 			      
 			      <%-- TODO: add student's grade to db --%>
-<%-- 			  <td>${user.grade}</td> --%>
-			      <td>-</td>
 			    </tr>
 			    </c:forEach>
 			  </tbody>

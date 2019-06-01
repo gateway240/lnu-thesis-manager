@@ -2,12 +2,15 @@ package se.lnu.dao;
 
 //import se.lnu.entity.Role;
 //import se.lnu.entity.User;
+import se.lnu.entity.User;
 import se.lnu.model.UserInfo;
 import java.util.List;
 
 public interface UserDao {
 
-//    List<User> getUsers();
+	User getUserByUsername(String username);
+    List<User> getUsers();
+    List<User> getUsersByRole(String Role);
 //    User saveUser(User user);
 //    Role saveRole(Role role);
 	 public List<?> list();

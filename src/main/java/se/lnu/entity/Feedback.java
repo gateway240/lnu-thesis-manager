@@ -2,8 +2,10 @@ package se.lnu.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table
 public class Feedback extends AbstractEntity {
 
     private String feedback;

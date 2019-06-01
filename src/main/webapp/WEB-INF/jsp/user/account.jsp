@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -14,9 +15,12 @@
 	</head>
 	
 	<body class="d-flex flex-column h-100">
-		<jsp:include page="../nav.jsp"></jsp:include>
+	<spring:url value="/user/saveAccount" var="saveAccountURL" />
+		<jsp:include page="../nav.jsp"></jsp:include>	
 	
 		<div class="container text-center">
+			<form:form method="post" modelAttribute="user" action="${saveAccountURL}">
+  			<form:hidden path="username"/>
 			<table class="table">
 			  <thead class="thead-dark">
 			    <tr>
@@ -26,12 +30,13 @@
 	<!-- 		      <th scope="col">Email</th> -->
 	<!-- 		      <th scope="col">Coordinator</th> -->
 	<!-- 		      <th scope="col">Supervisor</th> -->
-				  <th scope="col">Action</th>
-				  <th scope="col">Grade</th>
+				  <th scope="col">Change Password</th>
+				  <th scope="col">Status</th>
+				 
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <c:forEach items="${list}" var="user">
+			    
 			    <tr>
 	<%-- 		      <td>${user.firstname}</td> --%>
 	<%-- 		      <td>${user.lastname}</td> --%>
@@ -39,15 +44,16 @@
 	<%-- 		      <td>${user.email}</td> --%>
 	<%-- 		      <td>${user.coordinator}</td> --%>
 	<%-- 		      <td>${user.supervisor}</td> --%>
-			      <td><spring:url value="/user/setGrade" var="setGradeURL"/><a href="${setGradeURL}/${user.username}">Set Grade</a></td>
+<!-- 			      TODO: should refer to grade, not password -->
+			      <td><form:password path="password" /></td> 
+			      <td scope="col">${msg}</td>
 			      
-			      <%-- TODO: add student's grade to db --%>
-<%-- 			  <td>${user.grade}</td> --%>
-			      <td>-</td>
 			    </tr>
-			    </c:forEach>
+			
 			  </tbody>
 			</table>
+			<td><button type="submit" class="btn btn-dark">Submit</button></td>
+			</form:form>
 		</div>
 		
 		<footer class="footer mt-auto py-3">

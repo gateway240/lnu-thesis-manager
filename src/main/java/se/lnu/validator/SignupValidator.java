@@ -20,7 +20,10 @@ public class SignupValidator {
 	 public void validate(Object target, Errors errors) {
 		  UserForm user = (UserForm) target;
 		  
+		  ValidationUtils.rejectIfEmpty(errors, "firstname", "notEmpty.firstname");
+		  ValidationUtils.rejectIfEmpty(errors, "lastname", "notEmpty.lastname");
 		  ValidationUtils.rejectIfEmpty(errors, "username", "notEmpty.username");
+		  ValidationUtils.rejectIfEmpty(errors, "email", "notEmpty.email");
 		  ValidationUtils.rejectIfEmpty(errors, "password", "notEmpty.password");
 		  ValidationUtils.rejectIfEmpty(errors, "confirmPassword", "notEmpty.confirmPassword");
 	  

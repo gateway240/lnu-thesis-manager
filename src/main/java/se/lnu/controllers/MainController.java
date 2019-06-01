@@ -44,6 +44,6 @@ public class MainController {
 
 
         model.addAttribute("message", "Lnu Thesis Manager!");
-        return "hello";
+        return "start";
     }
 }

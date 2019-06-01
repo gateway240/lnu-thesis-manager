@@ -1,14 +1,14 @@
 package se.lnu.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
+@Table
 public class Document extends AbstractEntity {
 
     private String title;
 
+    @Column(name = "file_path")
     private String filePath;
 
     @ManyToOne

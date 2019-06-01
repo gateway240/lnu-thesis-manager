@@ -7,11 +7,11 @@ CREATE TABLE users
 (
     first_name VARCHAR(200),
     last_name  VARCHAR(200),
-    role       VARCHAR(100),
     email      VARCHAR(200),
     username VARCHAR(50)  NOT NULL,
     password VARCHAR(255) NOT NULL,
     enabled  TINYINT      NOT NULL DEFAULT 1,
+    CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username),
     PRIMARY KEY (username)
 );
 
@@ -38,11 +38,11 @@ CREATE TABLE IF NOT EXISTS feedback
 (
     id       INTEGER PRIMARY KEY AUTOINCREMENT,
     feedback VARCHAR(2000),
-    reviewer INTEGER,
+    reviewer VARCHAR(50),
     document INTEGER,
     CONSTRAINT fk_reviewer
         FOREIGN KEY (reviewer)
-            REFERENCES user (id),
+            REFERENCES users (username),
     CONSTRAINT fk_document
         FOREIGN KEY (document)
             REFERENCES document (id)

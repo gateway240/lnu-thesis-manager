@@ -1,17 +1,37 @@
 package se.lnu.entity;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
-public class Role extends AbstractEntity {
+@Table(name = "user_roles")
+public class Role  {
 
-    private String description;
+    private static final long serialVersionUID = 1L;
 
-    public String getDescription() {
-        return description;
+    @Id
+    @Column(name = "user_role_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @ManyToOne()
+    @JoinColumn(name = "username")
+    private User user;
+
+    private String role;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

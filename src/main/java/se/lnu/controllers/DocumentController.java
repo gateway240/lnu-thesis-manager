@@ -8,8 +8,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import se.lnu.dao.DocumentDao;
+import se.lnu.entity.Document;
 import se.lnu.entity.Feedback;
+
+import java.util.List;
 
 @RequestMapping("/document")
 @Controller
@@ -24,6 +28,13 @@ public class DocumentController {
 
         return null;
     }
+    @RequestMapping(value="/getAllDocuments", method=RequestMethod.GET)
+    @ResponseBody
+    public List<Document> getAllDocuments() {
+
+        return DocumentDao.viewAllDocuments();
+    }
+
 
 
 

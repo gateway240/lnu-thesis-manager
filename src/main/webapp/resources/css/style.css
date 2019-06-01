@@ -1,5 +1,5 @@
 .container {
-	margin-top: 10em;
+	margin-top: 8em;
 	
 }
 
@@ -9,4 +9,8 @@
 
 #user {
 	color: green;
+}
+
+.custom-file{
+	padding: 2em;
 }
