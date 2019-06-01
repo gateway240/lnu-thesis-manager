@@ -12,19 +12,19 @@ public class Grade  {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //@ManyToOne
-    @Column(name = "username")
-    private String user;
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private User user;
 
     @Column(name = "document_type")
     private String documentType;
     private String grade;
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
     

@@ -22,8 +22,8 @@
 			<h1>Grades</h1>
 			<form:form method="POST" action="${contextPath}/grade/setGrade" modelAttribute="grade">
 				 <div class="form-group text-left">
-					 <form:label path="user">Username</form:label>
-					 <form:input class="form-control" path="user"></form:input>
+					 <form:label path="user.username">Username</form:label>
+					 <form:input class="form-control" path="user.username"></form:input>
 				 </div>
 				  <div class="form-group text-left">
 					  <form:label path="documentType">Document Type</form:label>
@@ -45,9 +45,8 @@
 			<table class="table">
 			  <thead class="thead-dark">
 			    <tr>
-	<!-- 		      <th scope="col">Firstname</th> -->
-	<!-- 		      <th scope="col">Lastname</th> -->
-			      <th scope="col">Username</th>
+			      <th scope="col">Firstname</th>
+			      <th scope="col">Lastname</th>
 	<!-- 		      <th scope="col">Email</th> -->
 	<!-- 		      <th scope="col">Coordinator</th> -->
 	<!-- 		      <th scope="col">Supervisor</th> -->
@@ -58,7 +57,8 @@
 			  <tbody>
 				  <c:forEach items="${grades}" var="grade">
 					  <tr>
-						  <td>${grade.user}</td>
+						  <td>${grade.user.firstName}</td>
+						  <td>${grade.user.lastName}</td>
 						  <td>${grade.documentType}</td>
 						  <td>${grade.grade}</td>
 					  </tr>
