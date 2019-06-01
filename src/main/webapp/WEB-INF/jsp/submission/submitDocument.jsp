@@ -67,14 +67,14 @@
 					</div>
 					<div class="form-group text-left">
 						<form:label path="document">Document</form:label>
-						<form:select path="document.id" multiple="multiple" >
-							<form:options items="${documents}" itemValue="id" itemLabel="title"></form:options>
+						<form:select class="form-group browser-default custom-select custom-select-lg mb-3" path="document.id" multiple="multiple" >
+							<form:option value="document" items="${documents}" itemValue="id" itemLabel="title"></form:option>
 						</form:select>
 					</div>
 					<div class="form-group text-left">
 						<form:label path="deadline">Deadline</form:label>
-						<form:select path="deadline.id" multiple="multiple" >
-							<form:options items="${deadlines}" itemValue="id" itemLabel="name"></form:options>
+						<form:select class="form-group browser-default custom-select custom-select-lg mb-3" path="deadline.id" multiple="multiple" >
+							<form:option value="deadline" items="${deadlines}" itemValue="id" itemLabel="name"></form:option>
 						</form:select>
 					</div>
 
