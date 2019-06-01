@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import se.lnu.dao.GradeDao;
+import se.lnu.dao.UserDao;
 import se.lnu.entity.Grade;
 
 @RequestMapping("/")
@@ -19,6 +20,8 @@ public class GradeController {
 	
     @Autowired
     GradeDao gradeDao;
+    @Autowired
+    UserDao userDao;
 
     @RequestMapping(value = "/grade", method = RequestMethod.GET)
     public String getGrade(ModelMap model) {
@@ -26,6 +29,7 @@ public class GradeController {
         //model.addObject("user", userService.findUserByUsername(username));
     	model.addAttribute( "grade", new Grade());
     	model.addAttribute( "grades", gradeDao.findAllGrades());
+    	model.addAttribute( "users", userDao.getUsersByRole("ROLE_USER"));
         return "grade/set_grade";
     }
     

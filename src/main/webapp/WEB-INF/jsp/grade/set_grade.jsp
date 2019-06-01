@@ -21,10 +21,20 @@
 		<div class="container text-center">
 			<h1>Grades</h1>
 			<form:form method="POST" action="${contextPath}/grade/setGrade" modelAttribute="grade">
-				 <div class="form-group text-left">
-					 <form:label path="user.username">Username</form:label>
-					 <form:input class="form-control" path="user.username"></form:input>
-				 </div>
+<!-- 				 <div class="form-group text-left"> -->
+<%-- 					 <form:label path="user.username">Username</form:label> --%>
+<%-- 					 <form:input class="form-control" path="user.username"></form:input> --%>
+<!-- 				 </div> -->
+				  <div class="form-group text-left">
+					  <form:label path="user.username">Choose Student</form:label>
+					  <form:select class="form-group browser-default custom-select custom-select-lg mb-3" path="user.username">
+					  <c:forEach items="${users}" var="student">
+						  <form:option value="${student.username}" path="user.username">${student.firstName} ${student.lastName}</form:option>
+				      </c:forEach>
+					  </form:select>
+				  </div>
+				 
+				 
 				  <div class="form-group text-left">
 					  <form:label path="documentType">Document Type</form:label>
 					  <form:select class="form-group browser-default custom-select custom-select-lg mb-3" path="documentType">
