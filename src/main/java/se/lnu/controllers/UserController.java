@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,16 +34,15 @@ public class UserController {
     UserDao userDao;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(ModelMap model) {
+    public String list( ModelMap model) {
         List<User> users = userDao.getUsersByRole("ROLE_USER");
         model.addAttribute("list", users);
         return "user/list";
     }
-    
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String listUsers (ModelMap model) {
-        List<User> users = userDao.getUsersByRole("ROLE_USER");
-        model.addAttribute("list", users);
+    public String list(@RequestParam(value = "role", required = false) String role, ModelMap model) {
+        List<User> users = userDao.getUsersByRole(role);
+        model.addAttribute("users", users);
         return "user/users";
     }
     

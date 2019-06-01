@@ -1,7 +1,5 @@
 package se.lnu.entity;
 
-import org.springframework.stereotype.Controller;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +8,10 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
-    @Column(name = "first_name")
+    @Column(name = "firstname")
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "lastname")
     private String lastName;
 
     private String email;

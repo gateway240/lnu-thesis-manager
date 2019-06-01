@@ -60,19 +60,25 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	@Transactional
 	public List<User> getUsersByRole(String role) {
-		List<User> allUsers = getUsers();
-		List<User> filteredUsers = new ArrayList<>();
-		allUsers.forEach( user -> {
-			LOG.info("Role Desired: " + role);
-			LOG.info("Role of Current User: " + user.getRoles().get(0).getRole());
-			user.getRoles().forEach( localRole -> {
-				if(localRole.getRole().equals(role)){
-					filteredUsers.add(user);
-					return;
-				}
+		if(role != null){
+			List<User> allUsers = getUsers();
+			List<User> filteredUsers = new ArrayList<>();
+			allUsers.forEach( user -> {
+				LOG.info("Role Desired: " + role);
+				LOG.info("Role of Current User: " + user.getRoles().get(0).getRole());
+				user.getRoles().forEach( localRole -> {
+					if(localRole.getRole().equals(role)){
+						filteredUsers.add(user);
+						return;
+					}
+				});
 			});
-		});
-		return filteredUsers;
+			return filteredUsers;
+		}
+		else{
+			return getUsers();
+		}
+
 	}
 	//
 //    @Override
