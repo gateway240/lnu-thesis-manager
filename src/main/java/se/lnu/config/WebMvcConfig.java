@@ -69,8 +69,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public DataSource dataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("jdbc.driverClassName")));
-//        dataSource.setUrl(ConnectionFactory.getURL());
-        dataSource.setUrl(env.getProperty("jdbc.url"));
+        dataSource.setUrl(ConnectionFactory.getURL());
+//        dataSource.setUrl(env.getProperty("jdbc.url"));
         dataSource.setUsername(env.getProperty("jdbc.user"));
         dataSource.setPassword(env.getProperty("jdbc.pass"));
         return dataSource;
