@@ -40,7 +40,7 @@
 	      </li>
 	      
 	      <li class="nav-item">
-	        <a class="nav-link" href='<c:url value="/user/list" />'>Set Grade</a>
+	        <a class="nav-link" href='<c:url value="/grade" />'>Set Grade</a>
 	      </li>
 	      
 	      <li class="nav-item">

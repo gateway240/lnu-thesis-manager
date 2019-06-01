@@ -39,7 +39,7 @@
 	<%-- 		      <td>${user.email}</td> --%>
 	<%-- 		      <td>${user.coordinator}</td> --%>
 	<%-- 		      <td>${user.supervisor}</td> --%>
-			      <td><spring:url value="/user/setGrade" var="setGradeURL"/><a href="${setGradeURL}/${user.username}">Set Grade</a></td>
+			      <td><spring:url value="/grade/setGrade" var="setGradeURL"/><a href="${setGradeURL}/${user.username}">Set Grade</a></td>
 			      
 			      <%-- TODO: add student's grade to db --%>
 <%-- 			  <td>${user.grade}</td> --%>

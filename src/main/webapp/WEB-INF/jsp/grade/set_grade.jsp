@@ -2,6 +2,7 @@
 <%@ page session="false" language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -15,12 +16,32 @@
 	</head>
 	
 	<body class="d-flex flex-column h-100">
-	<spring:url value="/user/save" var="saveURL" />
 		<jsp:include page="../nav.jsp"></jsp:include>
 	
 		<div class="container text-center">
-			<form:form method="post" modelAttribute="user" action="${saveURL}">
-  			<form:hidden path="username"/>
+			<h1>Grades</h1>
+			<form:form method="POST" action="${contextPath}/grade/setGrade" modelAttribute="grade">
+				 <div class="form-group text-left">
+					 <form:label path="user">Username</form:label>
+					 <form:input class="form-control" path="user"></form:input>
+				 </div>
+				  <div class="form-group text-left">
+					  <form:label path="documentType">Document Type</form:label>
+					  <form:select class="form-group browser-default custom-select custom-select-lg mb-3" path="documentType">
+						  <form:option value="Project Description" selected="selected" path="documentType">Project Description</form:option>
+						  <form:option value="Project Plan" path="documentType">Project Plan</form:option>
+						  <form:option value="Final Report" path="documentType">Final Report</form:option>
+					  </form:select>
+				  </div>
+				  <div class="form-group text-left">
+					  <form:label path="grade">Grade</form:label>
+					  <form:input class="form-control" path="grade"></form:input>
+				  </div>
+					<input type="submit" class="btn btn-dark" value="Submit"/>
+			</form:form>
+			
+			<h1>All Grades</h1>
+		
 			<table class="table">
 			  <thead class="thead-dark">
 			    <tr>
@@ -30,29 +51,20 @@
 	<!-- 		      <th scope="col">Email</th> -->
 	<!-- 		      <th scope="col">Coordinator</th> -->
 	<!-- 		      <th scope="col">Supervisor</th> -->
+				  <th scope="col">Document Type</th>
 				  <th scope="col">Grade</th>
-				  <th scope="col">Action</th>
-				  <th scope="col">Status</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			    
-			    <tr>
-	<%-- 		      <td>${user.firstname}</td> --%>
-	<%-- 		      <td>${user.lastname}</td> --%>
-			      <td>${user.username}</td>
-	<%-- 		      <td>${user.email}</td> --%>
-	<%-- 		      <td>${user.coordinator}</td> --%>
-	<%-- 		      <td>${user.supervisor}</td> --%>
-<!-- 			      TODO: should refer to grade, not password -->
-			      <td><form:password path="password" /></td> 
-			      <td><button type="submit" >Set Grade</button></td>
-			      <td scope="col">${msg}</td>
-			    </tr>
-			
+				  <c:forEach items="${grades}" var="grade">
+					  <tr>
+						  <td>${grade.user}</td>
+						  <td>${grade.documentType}</td>
+						  <td>${grade.grade}</td>
+					  </tr>
+				  </c:forEach>
 			  </tbody>
 			</table>
-			</form:form>
 		</div>
 		
 		<footer class="footer mt-auto py-3">
