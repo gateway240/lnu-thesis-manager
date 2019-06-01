@@ -1,8 +1,8 @@
 package se.lnu.dao;
 import java.util.List;
-import se.lnu.model.UserInfo;
+import se.lnu.entity.User;
 
 public interface LoginDao {
-	UserInfo findUserInfo(String username);
+	User findUser(String username);
 	List<?> getUserRoles(String username);
 }

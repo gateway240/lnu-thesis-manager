@@ -44,7 +44,16 @@ public class User {
     Set<User> coordinatedUsers;
 
 
-    public String getFirstName() {
+    public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+
+	public User() {
+		
+	}
+
+	public String getFirstName() {
         return firstName;
     }
 

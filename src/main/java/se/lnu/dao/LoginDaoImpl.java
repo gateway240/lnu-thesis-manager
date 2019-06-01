@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import se.lnu.model.UserInfo;
+import se.lnu.entity.User;
 
 @Repository
 public class LoginDaoImpl implements LoginDao {
@@ -22,17 +22,17 @@ public class LoginDaoImpl implements LoginDao {
 		 this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	 }
 
-	 public UserInfo findUserInfo(String username) {
+	 public User findUser(String username) {
 		  String sql = "select username,password from users where username = :username";
-		  UserInfo userInfo = (UserInfo) namedParameterJdbcTemplate.queryForObject(sql, getSqlParameterSource(username, ""), new UserInfoMapper());
+		  User userInfo = (User) namedParameterJdbcTemplate.queryForObject(sql, getSqlParameterSource(username, ""), new UserInfoMapper());
 		  return userInfo;
 	 }
 	 
 	 private static final class UserInfoMapper implements RowMapper<Object>{
-		  public UserInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+		  public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			   String username = rs.getString("username");
 			   String password = rs.getString("password");
-			   return new UserInfo(username, password);
+			   return new User(username, password);
 		  }
 	 }
 	 

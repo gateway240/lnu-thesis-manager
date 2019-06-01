@@ -15,7 +15,6 @@ import se.lnu.dao.SubmissionDao;
 import se.lnu.dao.UserDao;
 import se.lnu.entity.User;
 import se.lnu.form.UserForm;
-import se.lnu.model.UserInfo;
 import se.lnu.service.UserService;
 import se.lnu.validator.SignupValidator;
 
@@ -65,11 +64,19 @@ public class UserController {
 	 }
 	 
 	 @RequestMapping(value="/saveAccount", method=RequestMethod.POST)
-	 public ModelAndView saveAccount(@ModelAttribute("user") UserInfo user){
+	 public ModelAndView saveAccount(@ModelAttribute("user") User user){
 		  ModelAndView model = setAccount(user.getUsername());
-		  userService.update(user.getUsername(), user.getPassword());
+		  userService.update(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail(), user.getPassword());
+		  model.addObject("user", userService.findUserByUsername(user.getUsername()));
 		  model.addObject("msg", "The account has been updated successfully!");
 		  return model;
+	 }
+	 
+	 @RequestMapping(value="/deleteAccount", method=RequestMethod.POST)
+	 public String deleteAccount(@ModelAttribute("user") User user){
+		  ModelAndView model = setAccount(user.getUsername());
+		  userService.delete(user.getUsername());
+		  return "/";
 	 }
 
     @RequestMapping(value = "/setGrade/{username}", method = RequestMethod.GET)
@@ -87,9 +94,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView save(@ModelAttribute("user") UserInfo user) {
+    public ModelAndView save(@ModelAttribute("user") User user) {
         ModelAndView model = setGrade(user.getUsername());
-        userService.update(user.getUsername(), user.getPassword());
+        userService.update(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail(), user.getPassword());
         model.addObject("msg", "The grade has been set successfully!");
         return model;
     }

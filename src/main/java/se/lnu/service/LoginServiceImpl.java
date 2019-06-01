@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import se.lnu.dao.LoginDao;
-import se.lnu.model.UserInfo;
 
 @Service
 public class LoginServiceImpl implements UserDetailsService {
@@ -25,9 +24,9 @@ public class LoginServiceImpl implements UserDetailsService {
 
 	 @SuppressWarnings("unchecked")
 	 public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		 UserInfo userInfo = loginDao.findUserInfo(username);
+		 se.lnu.entity.User user = loginDao.findUser(username);
 	  
-	  if(userInfo == null){
+	  if(user == null){
 		  throw new UsernameNotFoundException("username was not found in the database");
 	  }
 	  
@@ -43,7 +42,7 @@ public class LoginServiceImpl implements UserDetailsService {
 	   }
 	  }
 	  
-	  UserDetails userDetails = new User(userInfo.getUsername(), userInfo.getPassword(), grantList);
+	  UserDetails userDetails = new User(user.getUsername(), user.getPassword(), grantList);
 	  
 	  return userDetails;
 	 }

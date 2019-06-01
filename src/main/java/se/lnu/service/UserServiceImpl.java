@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.lnu.dao.UserDao;
-import se.lnu.model.UserInfo;
+import se.lnu.entity.User;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,12 +24,12 @@ public class UserServiceImpl implements UserService {
 		 return userDao.list();
 	 }
 
-	 public UserInfo findUserByUsername(String username) {
+	 public User findUserByUsername(String username) {
 		 return userDao.findUserByUsername(username);
 	 }
 
-	 public void update(String username, String password) {
-		 userDao.update(username, passwordEncoder.encode(password));
+	 public void update(String firstname, String lastname, String username, String email, String password) {
+		 userDao.update(firstname, lastname, username, email, passwordEncoder.encode(password));
 	 }
 
 	 public void add(String firstname, String lastname, String username, String email, String password, String role) {
@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService {
 	 public boolean userExists(String username) {
 		 return userDao.userExists(username);
 	 }
+
+	@Override
+	public void delete(String username) {
+		userDao.delete(username);
+	}
 }

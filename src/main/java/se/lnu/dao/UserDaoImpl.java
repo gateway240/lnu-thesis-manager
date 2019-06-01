@@ -29,7 +29,7 @@ import org.springframework.stereotype.Repository;
 //import javax.transaction.Transactional;
 import se.lnu.controllers.UserController;
 import se.lnu.entity.User;
-import se.lnu.model.UserInfo;
+import se.lnu.entity.User;
 import se.lnu.repository.UserRepository;
 
 import javax.transaction.Transactional;
@@ -156,25 +156,28 @@ public class UserDaoImpl implements UserDao {
 	 
 	@SuppressWarnings("rawtypes")
 	private static final class UserMapper implements RowMapper{
-		public UserInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
-		     UserInfo user = new UserInfo();
+		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+		     User user = new User();
+		     user.setFirstName(rs.getString("firstname"));
+		     user.setLastName(rs.getString("lastname"));
 		     user.setUsername(rs.getString("username"));
+		     user.setEmail(rs.getString("email"));
 		   
 		     return user;
 		}
 	}
 	
-	public UserInfo findUserByUsername(String username) {
-			String sql = "select username from users where username = :username";
+	public User findUserByUsername(String username) {
+			String sql = "select * from users where username = :username";
 				  
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			List list = namedParameterJdbcTemplate.query(sql, getSqlParameterSource(null, null, username, null, null, null), new UserMapper());
-		return (UserInfo) list.get(0);
+		return (User) list.get(0);
 	}
 
-	public void update(String username, String password) {
-		String sql = "update users set password = :password where username = :username";
-		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(null, null, username, null, password, null));
+	public void update(String firstname, String lastname, String username, String email, String password) {
+		String sql = "update users set firstname = :firstname, lastname = :lastname, email = :email, password = :password where username = :username";
+		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(firstname, lastname, username, email, password, null));
 	}
 
 	public void add(String firstname, String lastname, String username, String email, String password, String role) {
@@ -194,4 +197,10 @@ public class UserDaoImpl implements UserDao {
 		}
 		   return false;
 		}
+
+	@Override
+	public void delete(String username) {
+		String sql = "delete from users where username = :username";
+		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(null, null, username, null, null, null));	
+	}
 }

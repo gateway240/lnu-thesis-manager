@@ -16,6 +16,7 @@
 	
 	<body class="d-flex flex-column h-100">
 	<spring:url value="/user/saveAccount" var="saveAccountURL" />
+	<spring:url value="/user/deleteAccount" var="deleteAccountURL" />
 		<jsp:include page="../nav.jsp"></jsp:include>	
 	
 		<div class="container text-center">
@@ -24,36 +25,38 @@
 			<table class="table">
 			  <thead class="thead-dark">
 			    <tr>
-	<!-- 		      <th scope="col">Firstname</th> -->
-	<!-- 		      <th scope="col">Lastname</th> -->
+			      <th scope="col">Firstname</th>
+			      <th scope="col">Lastname</th>
 			      <th scope="col">Username</th>
-	<!-- 		      <th scope="col">Email</th> -->
+			      <th scope="col">Email</th>
 	<!-- 		      <th scope="col">Coordinator</th> -->
 	<!-- 		      <th scope="col">Supervisor</th> -->
-				  <th scope="col">Change Password</th>
-				  <th scope="col">Status</th>
-				 
+				  <th scope="col">Password</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			    
 			    <tr>
-	<%-- 		      <td>${user.firstname}</td> --%>
-	<%-- 		      <td>${user.lastname}</td> --%>
+			      <td><form:input class="form-control" path="firstName"></form:input></td>
+			      <td><form:input class="form-control" path="lastName"></form:input></td>
 			      <td>${user.username}</td>
-	<%-- 		      <td>${user.email}</td> --%>
-	<%-- 		      <td>${user.coordinator}</td> --%>
-	<%-- 		      <td>${user.supervisor}</td> --%>
-<!-- 			      TODO: should refer to grade, not password -->
-			      <td><form:password path="password" /></td> 
-			      <td scope="col">${msg}</td>
-			      
+			      <td><form:input class="form-control" path="email"></form:input></td>
+			      <td><form:input class="form-control" path="password"></form:input></td> 
+			      <td scope="col"></td>
 			    </tr>
 			
 			  </tbody>
 			</table>
-			<td><button type="submit" class="btn btn-dark">Submit</button></td>
+			<td><button type="submit" class="btn btn-dark">Submit changes</button></td>
+			
+			<p>${msg}</p>
+			
 			</form:form>
+			
+			<form:form method="post" modelAttribute="user" action="${deleteAccountURL}">
+  			<form:hidden path="username"/>
+  				<button type="submit" class="btn btn-dark">Delete account</button>
+  			</form:form>
 		</div>
 		
 		<footer class="footer mt-auto py-3">
