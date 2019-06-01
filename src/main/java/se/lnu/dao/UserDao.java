@@ -9,6 +9,7 @@ import java.util.List;
 public interface UserDao {
 
 	User getUserByUsername(String username);
+	User getCurrentAuthenticatedUser();
     List<User> getUsers();
     List<User> getUsersByRole(String Role);
 //    User saveUser(User user);

@@ -13,7 +13,7 @@ public class Role  {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "username")
     private User user;
 

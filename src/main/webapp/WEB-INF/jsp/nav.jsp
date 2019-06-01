@@ -1,7 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <script type="text/javascript">
     $(document).ready(function () {
         var url = window.location;
@@ -45,8 +44,12 @@
 	      </li>
 	      
 	      <li class="nav-item">
-	        <a class="nav-link" href='<c:url value="/uploadForm" />'>Submit Document</a>
+	        <a class="nav-link" href='<c:url value="/submission/uploadForm" />'>Upload Document</a>
 	      </li>
+
+			<li class="nav-item">
+				<a class="nav-link" href='<c:url value="/submission/submitDocument" />'>Submit Document</a>
+			</li>
 	     
 	    </ul>
   	</div>	

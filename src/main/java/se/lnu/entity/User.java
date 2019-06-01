@@ -3,6 +3,7 @@ package se.lnu.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -23,12 +24,25 @@ public class User {
 
     private Boolean enabled;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="username")
-    private List<Role> roles;
+    private String grade;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "author")
     private List<Document> documents = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Submission> submissions = new ArrayList<>();
+
+    @ManyToMany
+            @JoinTable(
+                    name="user_coordinators",
+                    joinColumns = @JoinColumn(name = "username"),
+                    inverseJoinColumns = @JoinColumn(name = "coordinator")
+            )
+    Set<User> coordinatedUsers;
+
 
     public String getFirstName() {
         return firstName;
@@ -90,6 +104,30 @@ public class User {
 
     public List<Document> getDocuments() {
         return documents;
+    }
+
+    public List<Submission> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<Submission> submissions) {
+        this.submissions = submissions;
+    }
+
+    public Set<User> getCoordinatedUsers() {
+        return coordinatedUsers;
+    }
+
+    public void setCoordinatedUsers(Set<User> coordinatedUsers) {
+        this.coordinatedUsers = coordinatedUsers;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
     public void setDocuments(List<Document> documents) {

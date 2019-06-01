@@ -14,6 +14,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 //import org.springframework.stereotype.Service;
@@ -79,6 +82,20 @@ public class UserDaoImpl implements UserDao {
 			return getUsers();
 		}
 
+	}
+
+	@Override
+	public User getCurrentAuthenticatedUser() {
+		//Get current user
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User authenticatedUser = new User();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			String currentUserName = authentication.getName();
+			LOG.info("CurrentUserName: " + currentUserName);
+			authenticatedUser = getUserByUsername(currentUserName);
+
+		}
+		return authenticatedUser;
 	}
 	//
 //    @Override

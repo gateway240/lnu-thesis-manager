@@ -1,6 +1,7 @@
 package se.lnu.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -11,9 +12,14 @@ public class Document extends AbstractEntity {
     @Column(name = "file_path")
     private String filePath;
 
+    private String category;
+
     @ManyToOne
     @JoinColumn(name = "author")
     private User author;
+
+    @OneToMany(mappedBy = "document")
+    private List<Feedback> feedbackList;
 
     public String getTitle() {
         return title;
@@ -37,5 +43,21 @@ public class Document extends AbstractEntity {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<Feedback> getFeedbackList() {
+        return feedbackList;
+    }
+
+    public void setFeedbackList(List<Feedback> feedbackList) {
+        this.feedbackList = feedbackList;
     }
 }

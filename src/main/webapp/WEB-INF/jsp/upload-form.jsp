@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>  
 <html>
 	<head>
@@ -24,7 +24,7 @@
 			<p style="color:green">${filesuccess}</p>
 			<p style="color:red">${errorMessage}</p> 
 			  
-			<form:form method="post" action="uploadFile" enctype="multipart/form-data">
+			<form:form method="post" action="${contextPath}/submission/uploadFile" enctype="multipart/form-data">
 <!-- 				<select class="form-group browser-default custom-select custom-select-lg mb-3"> -->
 <!-- 				  <option selected>Choose degree</option> -->
 <!-- 				  <option value="bachelor">Bachelor</option> -->
