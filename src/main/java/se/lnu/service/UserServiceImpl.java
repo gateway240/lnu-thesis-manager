@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
 		 userDao.update(username, passwordEncoder.encode(password));
 	 }
 
-	 public void add(String username, String password) {
-		 userDao.add(username, passwordEncoder.encode(password));
+	 public void add(String firstname, String lastname, String username, String email, String password, String role) {
+		 userDao.add(firstname, lastname, username, email, passwordEncoder.encode(password), role);
 	 }
 
 	 public boolean userExists(String username) {

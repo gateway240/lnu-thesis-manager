@@ -93,7 +93,7 @@ public class UserController {
 
     @RequestMapping(value = "/setGrade/{username}", method = RequestMethod.GET)
     public ModelAndView setGrade(@PathVariable("username") String username) {
-        ModelAndView model = new ModelAndView("user/set_grade");
+        ModelAndView model = new ModelAndView("grade/set_grade");
         model.addObject("user", userService.findUserByUsername(username));
         return model;
     }
@@ -128,7 +128,7 @@ public class UserController {
         if (result.hasErrors()) {
             return "/user/signup";
         } else {
-            userService.add(userForm.getUsername(), userForm.getPassword());
+            userService.add(userForm.getFirstname(), userForm.getLastname(), userForm.getUsername(), userForm.getEmail(), userForm.getPassword(), userForm.getRole());
             redirectAttributes.addFlashAttribute("msg", "Your account has been created successfully");
             return "redirect:/login";
         }

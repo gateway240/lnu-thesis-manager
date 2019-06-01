@@ -121,18 +121,34 @@ public class UserDaoImpl implements UserDao {
 	 @SuppressWarnings({ "unchecked", "rawtypes" })
 	 public List list() {
 		 String sql = "select username from users";
-		 List list = namedParameterJdbcTemplate.query(sql, getSqlParameterSource(null, null), new UserMapper());
+		 List list = namedParameterJdbcTemplate.query(sql, getSqlParameterSource(null, null, null, null, null, null), new UserMapper());
 	 return list;
 	 }
 	 
-	 private SqlParameterSource getSqlParameterSource(String username, String password){
+	 private SqlParameterSource getSqlParameterSource(String firstname, String lastname, String username, String email, String password, String role){
 		 MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+		 if(firstname != null){
+			 parameterSource.addValue("firstname", firstname);
+		 }
+		  
+		 if(lastname != null){
+			 parameterSource.addValue("lastname", lastname);
+		 }
+		 
 		 if(username != null){
 			 parameterSource.addValue("username", username);
 		 }
 		  
+		 if(email != null){
+			 parameterSource.addValue("email", email);
+		 }
+		 
 		 if(password != null){
 			 parameterSource.addValue("password", password);
+		 }
+		 
+		 if(role != null){
+			 parameterSource.addValue("role", role);
 		 }
 		  
 		 return parameterSource;
@@ -152,33 +168,26 @@ public class UserDaoImpl implements UserDao {
 			String sql = "select username from users where username = :username";
 				  
 			@SuppressWarnings({ "rawtypes", "unchecked" })
-			List list = namedParameterJdbcTemplate.query(sql, getSqlParameterSource(username, null), new UserMapper());
+			List list = namedParameterJdbcTemplate.query(sql, getSqlParameterSource(null, null, username, null, null, null), new UserMapper());
 		return (UserInfo) list.get(0);
 	}
 
 	public void update(String username, String password) {
 		String sql = "update users set password = :password where username = :username";
-		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(username, password));
+		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(null, null, username, null, password, null));
 	}
 
-	public void add(String username, String password) {
-		String sql = "insert into users(username, password) values(:username, :password)";
-		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(username, password));
-		sql = "insert into user_roles(username, role) values(:username, 'ROLE_USER')";
-		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(username, password));
+	public void add(String firstname, String lastname, String username, String email, String password, String role) {
+		String sql = "insert into users(firstname,lastname,username,email,password) values(:firstname,:lastname,:username,:email,:password)";
+		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(firstname,lastname,username,email,password, role));
+		sql = "insert into user_roles(username, role) values(:username, :role)";
+		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(firstname,lastname,username,email,password, role));
 	}
-	
-//	public void add(String username, String password) {
-//		String sql = "insert into users(firstname,lastname,username,email,password) values(:firstname,:lastname,:username,:email,:password)";
-//		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(firstname,lastname,username,email,password));
-//		sql = "insert into user_roles(username, role) values(:username, :role)";
-//		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(firstname,lastname,username,email,password));
-//	}
 
 	public boolean userExists(String username) {
 		String sql = "select * from users where username = :username";
 		@SuppressWarnings("unchecked")
-		List<?> list = namedParameterJdbcTemplate.query(sql, getSqlParameterSource(username, null), new UserMapper());
+		List<?> list = namedParameterJdbcTemplate.query(sql, getSqlParameterSource(null, null, username, null, null, null), new UserMapper());
 		  
 		if(list.size() > 0){
 		   return true;

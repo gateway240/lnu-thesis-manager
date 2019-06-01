@@ -14,6 +14,13 @@ CREATE  TABLE users (
   PRIMARY KEY (username)
 );
 
+CREATE TABLE grades (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	username TEXT NOT NULL,
+	document_type TEXT NOT NULL,
+	grade TEXT NOT NULL,
+	CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username)
+);
 
 CREATE TABLE IF NOT EXISTS user_roles
 (
