@@ -21,14 +21,14 @@
 		<div class="container text-center">
 			<h1>Find Submissions</h1>
 			<form>
-				<select class="form-group browser-default custom-select custom-select-lg mb-3">
-				  <option selected>Choose degree</option>
+				<select name="degree" class="form-group browser-default custom-select custom-select-lg mb-3">
+				  <option value="" selected>Choose degree</option>
 				  <option value="bachelor">Bachelor</option>
 				  <option value="master">Master</option>
 				</select>
 
-				<select class="form-group browser-default custom-select custom-select-lg mb-3">
-				  <option selected>Choose document category</option>
+				<select name="category" class="form-group browser-default custom-select custom-select-lg mb-3">
+				  <option value="" selected>Choose document category</option>
 				  <option value="description">Project Description</option>
 				  <option value="plan">Project Plan</option>
 				  <option value="report">Final Report</option>
@@ -38,7 +38,7 @@
 
 				<div class="form-group text-left">
 				    <label for="search-title"></label>
-				    <input class="form-control form-control-lg" name="search-title" type="text" placeholder="Search by title keyword" aria-label="Search">
+				    <input class="form-control form-control-lg" name="title" type="text" placeholder="Search by title keyword" aria-label="Search">
 			  	</div>
 
 			  	<div class="form-group text-center">

@@ -16,15 +16,15 @@ import se.lnu.dao.SubmissionDao;
 import se.lnu.dao.UserDao;
 import se.lnu.entity.User;
 import se.lnu.entity.Document;
+import se.lnu.entity.Submission;
 import se.lnu.form.UserForm;
-
-//import se.lnu.form.Document;
 
 import se.lnu.service.UserService;
 import se.lnu.validator.SignupValidator;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
@@ -70,12 +70,21 @@ public class UserController {
         return model;
     };
 
-	 @RequestMapping(value="/submissions", method=RequestMethod.GET)
-	 public ModelAndView submissions(){
-		  ModelAndView model = new ModelAndView("user/submissions");
-		  model.addObject("submissions", submissionDao.getAllSubmissions());
-		  return model;
-	 }
+    @RequestMapping(value="/submissions", method=RequestMethod.GET)
+    public ModelAndView submissions(@ModelAttribute("degree") String degree,
+                                    @ModelAttribute("category") String category,
+                                    @ModelAttribute("title") String title) {
+        List<Submission> submissions = submissionDao.getAllSubmissions()
+            .stream()
+            .filter(s -> s.getDegree().toLowerCase().contains(degree) &&
+                    Optional.ofNullable(s.getDocument().getCategory())
+                    .orElse("").toLowerCase().contains(category) &&
+                    s.getTitle().toLowerCase().contains(title.toLowerCase()))
+            .collect(Collectors.toList());
+        ModelAndView model = new ModelAndView("user/submissions");
+        model.addObject("submissions", submissions);
+        return model;
+    }
 
 	 @RequestMapping(value="/setAccount/{username}", method=RequestMethod.GET)
 	 public ModelAndView setAccount(@PathVariable("username") String username){
@@ -92,7 +101,7 @@ public class UserController {
 		  model.addObject("msg", "The account has been updated successfully!");
 		  return model;
 	 }
-	 
+
 	 @RequestMapping(value="/deleteAccount", method=RequestMethod.POST)
 	 public String deleteAccount(@ModelAttribute("user") User user){
 		  ModelAndView model = setAccount(user.getUsername());
