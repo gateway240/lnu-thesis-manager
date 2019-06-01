@@ -13,11 +13,11 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	</head>
-	
+
 	<body class="d-flex flex-column h-100">
 	<spring:url value="/user/save" var="saveURL" />
 		<jsp:include page="../nav.jsp"></jsp:include>
-	
+
 		<div class="container text-center">
 			<h1>Find Submissions</h1>
 			<form>
@@ -26,26 +26,26 @@
 				  <option value="bachelor">Bachelor</option>
 				  <option value="master">Master</option>
 				</select>
-				
+
 				<select class="form-group browser-default custom-select custom-select-lg mb-3">
 				  <option selected>Choose document category</option>
 				  <option value="description">Project Description</option>
 				  <option value="plan">Project Plan</option>
 				  <option value="report">Final Report</option>
 				</select>
-				
+
 				<!-- Search form -->
-				
+
 				<div class="form-group text-left">
 				    <label for="search-title"></label>
 				    <input class="form-control form-control-lg" name="search-title" type="text" placeholder="Search by title keyword" aria-label="Search">
 			  	</div>
-			  	
+
 			  	<div class="form-group text-center">
 				    <button type="submit" class="btn btn-dark">Find</button>
 			  	</div>
 		  	</form>
-		  
+
 			<table class="table">
 			  <thead class="thead-dark">
 			    <tr>
@@ -63,7 +63,7 @@
 			  <tbody>
 			    <c:forEach items="${submissions}" var="submission">
 			    <tr>
-			      <td><spring:url value="/user/viewDocument" var="viewDocumentURL"/><a href="${viewDocumentURL}/${submission.document.title}">View</a></td>
+			      <td><spring:url value="/user/viewDocument" var="viewDocumentURL"/><a href="${viewDocumentURL}/${submission.document.id}">View</a></td>
 			      <td>${submission.user.username}</td>
 			      <td>${submission.title}</td>
 			      <td>${submission.degree}</td>
@@ -76,9 +76,9 @@
 			    </c:forEach>
 			  </tbody>
 			</table>
-			
+
 		</div>
-		
+
 		<footer class="footer mt-auto py-3">
 		  <div class="container text-center">
 		    <span >&copy; 2019 | Team B | <a href="https://lnu.se/">LNU</a></span>

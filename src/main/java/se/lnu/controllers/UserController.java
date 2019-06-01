@@ -11,15 +11,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import se.lnu.dao.DocumentDao;
 import se.lnu.dao.SubmissionDao;
 import se.lnu.dao.UserDao;
 import se.lnu.entity.User;
+import se.lnu.entity.Document;
 import se.lnu.form.UserForm;
+import se.lnu.form.Document;
 import se.lnu.model.UserInfo;
 import se.lnu.service.UserService;
 import se.lnu.validator.SignupValidator;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -33,6 +37,9 @@ public class UserController {
 
     @Autowired
     SubmissionDao submissionDao;
+
+    @Autowired
+    DocumentDao documentDao;
 
     @Autowired
     UserDao userDao;
@@ -49,21 +56,33 @@ public class UserController {
         model.addAttribute("users", users);
         return "user/users";
     }
-    
+
+    @RequestMapping(value="/viewDocument/{id}", method=RequestMethod.GET)
+    public ModelAndView viewDocument(@PathVariable("id") Integer id) {
+        ModelAndView model = new ModelAndView("user/view_document");
+        Optional<Document> document = documentDao.getDocumentById(id);
+        if (document.isPresent()) {
+            String filePath = document.get().getFilePath();
+            model.addObject("document", document.get());
+            model.addObject("file_name", filePath.substring(filePath.lastIndexOf("/") + 1));
+        }
+        return model;
+    };
+
 	 @RequestMapping(value="/submissions", method=RequestMethod.GET)
 	 public ModelAndView submissions(){
 		  ModelAndView model = new ModelAndView("user/submissions");
 		  model.addObject("submissions", submissionDao.getAllSubmissions());
 		  return model;
 	 }
-	 
+
 	 @RequestMapping(value="/setAccount/{username}", method=RequestMethod.GET)
 	 public ModelAndView setAccount(@PathVariable("username") String username){
 		  ModelAndView model = new ModelAndView("user/account");
 		  model.addObject("user", userService.findUserByUsername(username));
 		  return model;
 	 }
-	 
+
 	 @RequestMapping(value="/saveAccount", method=RequestMethod.POST)
 	 public ModelAndView saveAccount(@ModelAttribute("user") UserInfo user){
 		  ModelAndView model = setAccount(user.getUsername());
