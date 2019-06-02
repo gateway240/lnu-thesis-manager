@@ -127,7 +127,7 @@ public class SubmissionController {
             if (authenticatedUser != null) {
                 document.setAuthor(authenticatedUser);
             }
-            downloadURL = "http://localhost:8080/thesis/download/pdf/" + filename;
+            downloadURL = "http://localhost:8080/lnu-thesis-manager/download/pdf/" + filename;
             document.setDownloadURL(downloadURL);
 
             model.addAttribute("title", title);
