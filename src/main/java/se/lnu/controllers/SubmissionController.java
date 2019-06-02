@@ -87,7 +87,7 @@ public class SubmissionController {
     }
     // CommonsMultipartFile implementation for Apache Commons FileUpload.
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    public ModelAndView upload(@RequestParam CommonsMultipartFile file,
+    public String upload(@RequestParam CommonsMultipartFile file,
                                @RequestParam String title,
                                @RequestParam String category,
                                HttpSession session,
@@ -95,11 +95,11 @@ public class SubmissionController {
 
         if (!(file.getOriginalFilename().endsWith(".pdf"))) {
             model.addAttribute("errorMessage", "Only PDF-files are allowed");
-            return new ModelAndView("upload-form");
+            return "upload-form";
         }
         if(title.isEmpty()) {
             model.addAttribute("errorMessage", "Please enter a title for the document");
-            return new ModelAndView("upload-form");
+            return "upload-form";
         }
 
         // get applications root
@@ -155,7 +155,7 @@ public class SubmissionController {
             System.out.println(e);
         }
 
-        return new ModelAndView("upload-success", "downloadURL", downloadURL);
+        return "redirect:/submission/submitDocument";
 
     }
 }
