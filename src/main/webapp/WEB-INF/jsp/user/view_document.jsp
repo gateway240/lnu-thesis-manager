@@ -67,7 +67,7 @@
         </div>
         <div class="form-group text-left">
             <form:label path="feedback">Feedback</form:label>
-            <form:textarea rows="10" cols="100" path="feedback"></form:textarea>
+            <form:textarea class="form-control" rows="10" cols="100" path="feedback"></form:textarea>
         </div>
         <input type="submit" class="btn btn-dark" value="Submit"/>
     </form:form>
