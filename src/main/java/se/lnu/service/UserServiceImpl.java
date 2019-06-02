@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
          User supervisor = userDao.getUserByUsername("supervisor");
          UserSupervisor userSupervisor = new UserSupervisor();
-         userSupervisor.setStatus("approved");
+         userSupervisor.setStatus("pending");
          userSupervisor.setUser(user);
          userSupervisor.setSupervisor(supervisor);
          userDao.saveUserSupervisor(userSupervisor);
