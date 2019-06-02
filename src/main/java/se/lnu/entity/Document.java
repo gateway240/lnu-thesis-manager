@@ -1,6 +1,7 @@
 package se.lnu.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,8 +25,8 @@ public class Document extends AbstractEntity {
     @JoinColumn(name = "author")
     private User author;
 
-    @OneToMany(cascade = {CascadeType.ALL},mappedBy = "document")
-    private List<Feedback> feedbackList;
+    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL},mappedBy = "document")
+    private List<Feedback> feedbackList = new ArrayList<>();
 
     public String getTitle() {
         return title;
