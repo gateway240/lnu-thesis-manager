@@ -17,6 +17,8 @@ import se.lnu.dao.UserDao;
 import se.lnu.entity.Document;
 import se.lnu.entity.Submission;
 import se.lnu.entity.User;
+import se.lnu.email.EmailService;
+import se.lnu.email.GmailSender;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -125,13 +127,22 @@ public class SubmissionController {
             if (authenticatedUser != null) {
                 document.setAuthor(authenticatedUser);
             }
-            downloadURL = "http://localhost:8080/thesis/download/pdf/" + filename;
+            downloadURL = "http://localhost:8080/lnu-thesis-manager/download/pdf/" + filename;
             document.setDownloadURL(downloadURL);
 
             model.addAttribute("title", title);
 
             documentDao.saveDocument(document);
 
+            String gmailUsername = System.getenv("GMAIL_USERNAME");
+            String gmailPassword = System.getenv("GMAIL_PASSWORD");
+            String email = authenticatedUser.getEmail();
+            if (gmailUsername != null && gmailPassword != null && email != null) {
+                GmailSender gmailSender = new GmailSender(gmailUsername, gmailPassword);
+                EmailService emailService = new EmailService(gmailSender.getJavaMailSender());
+                emailService.sendEmail(email, "Uploaded document", "You have uploaded " +
+                                       filename + " to the thesis management system.");
+            }
         } catch (Exception e) {
             System.out.println(e);
         }

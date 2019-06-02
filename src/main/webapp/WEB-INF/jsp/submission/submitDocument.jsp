@@ -27,7 +27,7 @@
 					<tr>
 						<th scope="col">Title</th>
 						<th scope="col">Author</th>
-						<th scope="col">Path</th>
+					<!-- <th scope="col">Path</th> -->	
 						<th scope="col">Category</th>
 						<%--<th scope="col">Action</th>--%>
 					</tr>
@@ -35,9 +35,9 @@
 					<tbody>
 					<c:forEach items="${documents}" var="document">
 						<tr>
-							<td>${document.title}</td>
+							<td><a href="${document.downloadURL}">${document.title}</a></td>
 							<td>${document.author.username}</td>
-							<td>${document.filePath}</td>
+							<!--<td><a href="${document.downloadURL}">${document.fileName}</a></td>  -->
 							<td>${document.category}</td>
 							<%--<td><spring:url value="/submission/addSubmission" var="addSubmissionURL"/><a href="${addSubmissionURL}?document=${document.id}">Submit Document</a></td>--%>
 
