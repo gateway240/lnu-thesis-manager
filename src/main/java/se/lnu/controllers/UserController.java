@@ -25,6 +25,7 @@ import se.lnu.service.UserService;
 import se.lnu.validator.SignupValidator;
 
 import java.util.List;
+import java.security.Principal;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -102,15 +103,21 @@ public class UserController {
     }
 
 	 @RequestMapping(value="/setAccount/{username}", method=RequestMethod.GET)
-	 public ModelAndView setAccount(@PathVariable("username") String username){
+	 public ModelAndView setAccount(Principal principal, @PathVariable("username") String username){
 		  ModelAndView model = new ModelAndView("user/account");
 		  model.addObject("user", userService.findUserByUsername(username));
-		  return model;
+		  if (principal.getName().equals(username)) {
+			  return model;
+		  } else {
+			  return new ModelAndView("errors/access_denied");
+		  }
+		  
 	 }
 
 	 @RequestMapping(value="/saveAccount", method=RequestMethod.POST)
 	 public ModelAndView saveAccount(@ModelAttribute("user") User user){
-		  ModelAndView model = setAccount(user.getUsername());
+		  ModelAndView model = new ModelAndView("user/account");
+		  model.addObject("user", userService.findUserByUsername(user.getUsername()));
 		  userService.update(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail(), user.getPassword());
 		  model.addObject("user", userService.findUserByUsername(user.getUsername()));
 		  model.addObject("msg", "The account has been updated successfully!");
@@ -119,7 +126,8 @@ public class UserController {
 
 	 @RequestMapping(value="/deleteAccount", method=RequestMethod.POST)
 	 public String deleteAccount(@ModelAttribute("user") User user){
-		  ModelAndView model = setAccount(user.getUsername());
+		  ModelAndView model = new ModelAndView("user/account");
+		  model.addObject("user", userService.findUserByUsername(user.getUsername()));
 		  userService.delete(user.getUsername());
 		  return "/";
 	 }
