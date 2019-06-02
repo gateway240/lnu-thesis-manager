@@ -30,7 +30,11 @@ import org.springframework.stereotype.Repository;
 import se.lnu.controllers.UserController;
 import se.lnu.entity.User;
 import se.lnu.entity.User;
+import se.lnu.entity.UserCoordinator;
+import se.lnu.entity.UserSupervisor;
+import se.lnu.repository.UserCoordinatorRepository;
 import se.lnu.repository.UserRepository;
+import se.lnu.repository.UserSupervisorRepository;
 
 import javax.transaction.Transactional;
 
@@ -41,7 +45,26 @@ public class UserDaoImpl implements UserDao {
 	@Qualifier("userRepository")
     private UserRepository userRepository;
 
-	@Override
+    @Autowired
+    @Qualifier("userSupervisorRepository")
+    private UserSupervisorRepository userSupervisorRepository;
+
+    @Autowired
+    @Qualifier("userCoordinatorRepository")
+    private UserCoordinatorRepository userCoordinatorRepository;
+
+    @Override
+    @Transactional
+    public UserSupervisor saveUserSupervisor(UserSupervisor userSupervisor) {
+        return userSupervisorRepository.save(userSupervisor);
+    }
+
+    @Override
+    public UserCoordinator saveUserCoordinator(UserCoordinator userCoordinator) {
+        return userCoordinatorRepository.save(userCoordinator);
+    }
+
+    @Override
 	@Transactional
 	public User getUserByUsername(String username) {
 		return userRepository.findUserByUsername(username);

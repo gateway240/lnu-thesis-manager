@@ -35,13 +35,11 @@ public class User {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "user")
     private List<Submission> submissions = new ArrayList<>();
 
-    @ManyToMany
-            @JoinTable(
-                    name="user_coordinators",
-                    joinColumns = @JoinColumn(name = "username"),
-                    inverseJoinColumns = @JoinColumn(name = "coordinator")
-            )
-    Set<User> coordinatedUsers;
+    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL}, mappedBy = "user")
+    private Set<UserSupervisor> supervisors;
+
+    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL}, mappedBy = "user")
+    private Set<UserCoordinator> coordinators;
 
 
     public User(String username, String password) {
@@ -123,12 +121,12 @@ public class User {
         this.submissions = submissions;
     }
 
-    public Set<User> getCoordinatedUsers() {
-        return coordinatedUsers;
+    public Set<UserCoordinator> getCoordinators() {
+        return coordinators;
     }
 
-    public void setCoordinatedUsers(Set<User> coordinatedUsers) {
-        this.coordinatedUsers = coordinatedUsers;
+    public void setCoordinators(Set<UserCoordinator> coordinators) {
+        this.coordinators = coordinators;
     }
 
     public String getGrade() {
@@ -137,6 +135,14 @@ public class User {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public Set<UserSupervisor> getSupervisors() {
+        return supervisors;
+    }
+
+    public void setSupervisors(Set<UserSupervisor> supervisors) {
+        this.supervisors = supervisors;
     }
 
     public void setDocuments(List<Document> documents) {

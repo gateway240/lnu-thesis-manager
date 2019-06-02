@@ -68,8 +68,8 @@
 			      <td>${submission.title}</td>
 			      <td>${submission.degree}</td>
 			      <td>${submission.document.category}</td>
-			      <td>${submission.user.username}</td>
-			      <td>${submission.user.username}</td>
+			      <td>${submission.user.supervisors.stream().findFirst().get().supervisor.username}</td>
+			      <td>${submission.user.coordinators.stream().findFirst().get().coordinator.username}</td>
 			      <td>${submission.date}</td>
 			      <td>${submission.deadline.name}</td>
 			    </tr>

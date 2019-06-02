@@ -24,7 +24,7 @@ public class Document extends AbstractEntity {
     @JoinColumn(name = "author")
     private User author;
 
-    @OneToMany(mappedBy = "document")
+    @OneToMany(cascade = {CascadeType.ALL},mappedBy = "document")
     private List<Feedback> feedbackList;
 
     public String getTitle() {

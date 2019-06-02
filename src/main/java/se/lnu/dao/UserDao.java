@@ -3,6 +3,9 @@ package se.lnu.dao;
 //import se.lnu.entity.Role;
 //import se.lnu.entity.User;
 import se.lnu.entity.User;
+import se.lnu.entity.UserCoordinator;
+import se.lnu.entity.UserSupervisor;
+
 import java.util.List;
 
 public interface UserDao {
@@ -11,6 +14,8 @@ public interface UserDao {
 	User getCurrentAuthenticatedUser();
     List<User> getUsers();
     List<User> getUsersByRole(String Role);
+    UserSupervisor saveUserSupervisor(UserSupervisor userSupervisor);
+    UserCoordinator saveUserCoordinator(UserCoordinator userCoordinator);
 //    User saveUser(User user);
 //    Role saveRole(Role role);
 	 public List<?> list();

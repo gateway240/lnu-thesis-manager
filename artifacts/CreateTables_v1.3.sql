@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS user_supervisors
 (
     user_supervisor_id INTEGER PRIMARY KEY AUTOINCREMENT,
     username           VARCHAR(50) NOT NULL,
-    supervisor         VARCHAR(50) NOT NULL,
+    supervisor        VARCHAR(50) NOT NULL,
     status             VARCHAR(50) NOT NULL,
     UNIQUE (username, supervisor),
     CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username),
@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS user_coordinators
     user_coordinator_id INTEGER PRIMARY KEY AUTOINCREMENT,
     username            VARCHAR(50) NOT NULL,
     coordinator         VARCHAR(50) NOT NULL,
+    status             VARCHAR(50) NOT NULL,
     UNIQUE (username, coordinator),
     CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username),
     CONSTRAINT fk_supervisor FOREIGN KEY (coordinator) REFERENCES users (username)
@@ -93,14 +94,10 @@ CREATE TABLE IF NOT EXISTS submission
     title    VARCHAR(200),
     degree   VARCHAR(50),
     document INTEGER,
---   supervisor VARCHAR(50),
---   coordinator VARCHAR(50),
     date     DATETIME,
     deadline INTEGER,
     CONSTRAINT fk_user FOREIGN KEY (user) REFERENCES users (username),
     CONSTRAINT fk_document FOREIGN KEY (document) REFERENCES document (id),
---   CONSTRAINT fk_supervisor FOREIGN KEY (supervisor) REFERENCES users(username),
---   CONSTRAINT fk_coordinator FOREIGN KEY (coordinator) REFERENCES users(username),
     CONSTRAINT fk_deadline FOREIGN KEY (deadline) REFERENCES deadline (id)
 );
 
@@ -109,7 +106,7 @@ INSERT INTO users(firstname, lastname, username, email, password, enabled)
 VALUES ('Johan', 'Johansson', 'coordinator', 'coordinator@lnu.se',
         '$2a$10$fNwdswb5cT2IBa1.DwdODeM9IY8Ht6cFuehAGTP5vs7jhTMkdth12', true);
 INSERT INTO users(firstname, lastname, username, email, password, enabled)
-VALUES ('Sven', 'Svensson', 'supervisor', 'supervisor@lnu.se',
+VALUES ('Sven', 'Svensson', 'supervisor', 'coordinator@lnu.se',
         '$2a$10$fNwdswb5cT2IBa1.DwdODeM9IY8Ht6cFuehAGTP5vs7jhTMkdth12', true);
 INSERT INTO users(firstname, lastname, username, email, password, enabled)
 VALUES ('Olle', 'Olsson', 'student', 'student@lnu.se', '$2a$10$fNwdswb5cT2IBa1.DwdODeM9IY8Ht6cFuehAGTP5vs7jhTMkdth12',
@@ -121,3 +118,10 @@ INSERT INTO user_roles (username, role)
 VALUES ('supervisor', 'ROLE_SUPERVISOR');
 INSERT INTO user_roles (username, role)
 VALUES ('student', 'ROLE_USER');
+
+INSERT INTO user_supervisors (username, supervisor, status)
+VALUES ('student','supervisor','approved');
+
+INSERT INTO user_coordinators (username, coordinator, status)
+VALUES ('student','coordinator','approved');
+
