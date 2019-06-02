@@ -1,8 +1,6 @@
 package se.lnu.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
@@ -11,9 +9,11 @@ public class Feedback extends AbstractEntity {
     private String feedback;
 
     @ManyToOne
+    @JoinColumn(name ="reviewer")
     private User reviewer;
 
     @ManyToOne
+    @JoinColumn(name = "document")
     private Document document;
 
     public String getFeedback() {

@@ -15,10 +15,7 @@ import se.lnu.dao.GradeDao;
 import se.lnu.dao.DocumentDao;
 import se.lnu.dao.SubmissionDao;
 import se.lnu.dao.UserDao;
-import se.lnu.entity.User;
-import se.lnu.entity.Grade;
-import se.lnu.entity.Document;
-import se.lnu.entity.Submission;
+import se.lnu.entity.*;
 import se.lnu.form.UserForm;
 
 import se.lnu.service.UserService;
@@ -74,6 +71,8 @@ public class UserController {
             model.addObject("document", document.get());
             model.addObject("file_name", filePath.substring(filePath.lastIndexOf("/") + 1));
         }
+        Feedback feedback = new Feedback();
+        model.addObject("feedback",feedback);
         return model;
     };
 
@@ -129,7 +128,7 @@ public class UserController {
 		  ModelAndView model = new ModelAndView("user/account");
 		  model.addObject("user", userService.findUserByUsername(user.getUsername()));
 		  userService.delete(user.getUsername());
-		  return "/";
+		  return "redirect:/user/signup";
 	 }
 
     @RequestMapping(value = "/setGrade/{username}", method = RequestMethod.GET)
