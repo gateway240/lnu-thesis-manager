@@ -1,9 +1,9 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -14,8 +14,8 @@
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	</head> 
-    <body>  
+	</head>
+    <body>
         <jsp:include page="../nav.jsp"></jsp:include>
 
 		<div class="container text-center">
@@ -68,13 +68,13 @@
 					<div class="form-group text-left">
 						<form:label path="document">Document</form:label>
 						<form:select class="form-group browser-default custom-select custom-select-lg mb-3" path="document.id" multiple="multiple" >
-							<form:option value="document" items="${documents}" itemValue="id" itemLabel="title"></form:option>
+							<form:options items="${documents}" itemValue="id" itemLabel="title" />
 						</form:select>
 					</div>
 					<div class="form-group text-left">
 						<form:label path="deadline">Deadline</form:label>
 						<form:select class="form-group browser-default custom-select custom-select-lg mb-3" path="deadline.id" multiple="multiple" >
-							<form:option value="deadline" items="${deadlines}" itemValue="id" itemLabel="name"></form:option>
+							<form:options items="${deadlines}" itemValue="id" itemLabel="name" />
 						</form:select>
 					</div>
 
@@ -85,5 +85,5 @@
 
 
 		</div>
-	</body>  
-</html>  
+	</body>
+</html>
