@@ -14,6 +14,12 @@ public class Document extends AbstractEntity {
 
     private String category;
 
+    @Column(name = "file_name")
+    private String fileName;
+
+    @Column(name = "download_url")
+    private String downloadURL;
+
     @ManyToOne
     @JoinColumn(name = "author")
     private User author;
@@ -58,6 +64,28 @@ public class Document extends AbstractEntity {
     }
 
     public void setFeedbackList(List<Feedback> feedbackList) {
+
         this.feedbackList = feedbackList;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getDownloadURL() {
+        return downloadURL;
+    }
+
+    public void setDownloadURL(String downloadURL) {
+        this.downloadURL = downloadURL;
+    }
+
+    @Override
+    public String toString(){
+        return "title : " + title + " filePath : " + filePath + " author : " + author + " fileName : " + fileName + " downloadURL : " + downloadURL;
     }
 }

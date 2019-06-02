@@ -64,16 +64,6 @@ public class SubmissionController {
         return "submission/submitDocument";
     }
 
-//    @RequestMapping(value = "/addSubmission", method = RequestMethod.GET)
-//    public String loadAddSubmission(@RequestParam(value = "document")Integer documentId,ModelMap map){
-//
-////        Optional<Document> document = documentDao.getDocumentById(documentId);
-//
-////        submission.setDocument(document.get());
-//
-//
-//        return "submission/addSubmission";
-//    }
     @RequestMapping(value = "/addSubmission/submit", method = RequestMethod.POST)
     public String addSubmission(@Valid @ModelAttribute("submission") Submission submission){
         submission.setDate(new Date());
@@ -95,6 +85,12 @@ public class SubmissionController {
             model.addAttribute("errorMessage", "Only PDF-files are allowed");
             return new ModelAndView("upload-form");
         }
+        if(title.isEmpty()) {
+            model.addAttribute("errorMessage", "Please enter a title for the document");
+            return new ModelAndView("upload-form");
+
+        }
+
 
         // get applications root
         String path = session.getServletContext().getRealPath("/WEB-INF/downloads/pdf");
@@ -103,7 +99,8 @@ public class SubmissionController {
         // Makes the file path unique
         String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
-        System.out.println(path + " " + filename);
+        String downloadURL = "";
+        LOG.info(path + " " + filename);
 
         try {
 
@@ -123,11 +120,15 @@ public class SubmissionController {
             document.setFilePath(path + "/" + filename);
             document.setTitle(title);
             document.setCategory(category);
+            document.setFileName(filename);
             // set athor to the logged in users id
             if (authenticatedUser != null) {
                 document.setAuthor(authenticatedUser);
             }
+            downloadURL = "http://localhost:8080/thesis/download/pdf/" + filename;
+            document.setDownloadURL(downloadURL);
 
+            model.addAttribute("title", title);
 
             documentDao.saveDocument(document);
 
@@ -135,7 +136,7 @@ public class SubmissionController {
             System.out.println(e);
         }
 
-        return new ModelAndView("upload-success", "filename", path + "/" + filename);
+        return new ModelAndView("upload-success", "downloadURL", downloadURL);
 
     }
 }

@@ -39,7 +39,7 @@
 				</select> -->
 
 				<div class="form-group custom-file">
-				  <input type="file" class="custom-file-input" id="file" name="file">
+				  <input type="file" class="custom-file-input" id="file" name="file" onchange="$(this).next().after().text($(this).val().split('\\').slice(-1)[0])">
 				  <label class="custom-file-label" for="file">Choose file (PDF only)</label>
 				</div>
 

@@ -20,9 +20,8 @@
 		
 		<div class="container">
 			<h1 style="color:green">Upload success!</h1>
-			
-			<p><a href="http://localhost/thisisatest">"${filename}"</a></p>
-			<p><a href="${filename}">http://localhost/thisisatest</a></p>
+
+            <a href="${downloadURL}">${title}</a>
 		</div>	
 	</body>
 </html>
