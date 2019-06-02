@@ -57,8 +57,7 @@
 		<h1>Registration</h1>
 		<c:if test="${not empty error}"><div class="error">${error}</div></c:if>
 		<c:if test="${not empty msg}"><div class="msg">${msg}</div></c:if>
-<%-- 		<c:url value='/registration' var="loginVar" />
-		<form name='registration' id='registration' action="${loginVar}" method='POST'> --%>
+
 		<form:form action="${registerURL}" modelAttribute="userForm" method="post">
 		  <div class="form-group">
 		    <label for="firstname">First Name</label>
@@ -106,7 +105,6 @@
 		  </div>
 
 		  <input type="submit" value="Submit" class="btn btn-primary"/>
-<%-- 		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
 		</form:form>
 		</div>
 	</body>

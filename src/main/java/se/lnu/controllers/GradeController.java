@@ -25,8 +25,6 @@ public class GradeController {
 
     @RequestMapping(value = "/grade", method = RequestMethod.GET)
     public String getGrade(ModelMap model) {
-        //ModelAndView model = new ModelAndView("grade/set_grade");
-        //model.addObject("user", userService.findUserByUsername(username));
     	model.addAttribute( "grade", new Grade());
     	model.addAttribute( "grades", gradeDao.findAllGrades());
     	model.addAttribute( "users", userDao.getUsersByRole("ROLE_USER"));
@@ -36,8 +34,6 @@ public class GradeController {
     @RequestMapping(value = "/grade/setGrade", method = RequestMethod.POST)
     public String setGrade(@Valid @ModelAttribute("grade") Grade grade, ModelMap model) {
     	gradeDao.addGrade(grade);
-        //ModelAndView model = new ModelAndView("grade/set_grade");
-        //model.addObject("user", userService.findUserByUsername(username));
     	model.addAttribute( "grades", gradeDao.findAllGrades());
         return "grade/set_grade";
     }

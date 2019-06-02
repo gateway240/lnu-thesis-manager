@@ -90,9 +90,7 @@ public class SubmissionController {
         if(title.isEmpty()) {
             model.addAttribute("errorMessage", "Please enter a title for the document");
             return new ModelAndView("upload-form");
-
         }
-
 
         // get applications root
         String path = session.getServletContext().getRealPath("/WEB-INF/downloads/pdf");

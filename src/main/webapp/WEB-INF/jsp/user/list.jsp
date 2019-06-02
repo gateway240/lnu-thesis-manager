@@ -20,12 +20,7 @@
 			<table class="table">
 			  <thead class="thead-dark">
 			    <tr>
-	<!-- 		      <th scope="col">Firstname</th> -->
-	<!-- 		      <th scope="col">Lastname</th> -->
 			      <th scope="col">Username</th>
-	<!-- 		      <th scope="col">Email</th> -->
-	<!-- 		      <th scope="col">Coordinator</th> -->
-	<!-- 		      <th scope="col">Supervisor</th> -->
 				  <th scope="col">Action</th>
 				  <th scope="col">Grade</th>
 			    </tr>
@@ -33,16 +28,8 @@
 			  <tbody>
 			    <c:forEach items="${list}" var="user">
 			    <tr>
-	<%-- 		      <td>${user.firstname}</td> --%>
-	<%-- 		      <td>${user.lastname}</td> --%>
 			      <td>${user.username}</td>
-	<%-- 		      <td>${user.email}</td> --%>
-	<%-- 		      <td>${user.coordinator}</td> --%>
-	<%-- 		      <td>${user.coordinator}</td> --%>
 			      <td><spring:url value="/grade/setGrade" var="setGradeURL"/><a href="${setGradeURL}/${user.username}">Set Grade</a></td>
-			      
-			      <%-- TODO: add student's grade to db --%>
-<%-- 			  <td>${user.grade}</td> --%>
 			      <td>-</td>
 			    </tr>
 			    </c:forEach>
