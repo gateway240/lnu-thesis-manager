@@ -159,6 +159,20 @@
 			<version>${spring-security-version}</version>
 		</dependency>
 		
+		<!-- Email Service -->
+        <!-- Spring Context Support  -->
+        <dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-context-support</artifactId>
+    		<version>5.0.1.RELEASE</version>
+		</dependency>
+		<!-- JavaX Mail -->
+		<dependency>
+   			<groupId>javax.mail</groupId>
+   			<artifactId>mail</artifactId>
+   			<version>1.4.7</version>
+		</dependency>
+		
 		<!-- Spring Security JSP Taglib -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
