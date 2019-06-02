@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.lnu.dao.UserDao;
+import se.lnu.entity.UserCoordinator;
+import se.lnu.entity.UserSupervisor;
 import se.lnu.entity.User;
 
 @Service
@@ -34,6 +36,25 @@ public class UserServiceImpl implements UserService {
 
 	 public void add(String firstname, String lastname, String username, String email, String password, String role) {
 		 userDao.add(firstname, lastname, username, email, passwordEncoder.encode(password), role);
+         /*
+          * FIXME: this probably shouldn't be here, but there needs to be a
+          * unique relationship between a user and a coordinator, and afaik the
+          * coordinator is not user-requestable?
+          */
+         User user = findUserByUsername(username);
+         User coordinator = userDao.getUserByUsername("coordinator");
+         UserCoordinator userCoordinator = new UserCoordinator();
+         userCoordinator.setStatus("approved");
+         userCoordinator.setUser(user);
+         userCoordinator.setCoordinator(coordinator);
+         userDao.saveUserCoordinator(userCoordinator);
+
+         User supervisor = userDao.getUserByUsername("supervisor");
+         UserSupervisor userSupervisor = new UserSupervisor();
+         userSupervisor.setStatus("approved");
+         userSupervisor.setUser(user);
+         userSupervisor.setSupervisor(supervisor);
+         userDao.saveUserSupervisor(userSupervisor);
 	 }
 
 	 public boolean userExists(String username) {

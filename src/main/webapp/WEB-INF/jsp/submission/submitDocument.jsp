@@ -62,6 +62,12 @@
 
 					</div>
 					<div class="form-group text-left">
+						<form:label path="user">Request supervisor</form:label>
+                        <form:select class="form-group browser-default custom-select custom-select-lg mb-3" path="user.username">
+                            <form:options items="${supervisors}" itemValue="username" itemLabel="username" />
+                        </form:select>
+					</div>
+					<div class="form-group text-left">
 						<form:label path="degree">Degree</form:label>
 						<form:input class="form-control" path="degree"></form:input>
 					</div>

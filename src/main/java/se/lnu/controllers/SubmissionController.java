@@ -17,6 +17,7 @@ import se.lnu.dao.UserDao;
 import se.lnu.entity.Document;
 import se.lnu.entity.Submission;
 import se.lnu.entity.User;
+import se.lnu.entity.UserSupervisor;
 import se.lnu.email.EmailService;
 import se.lnu.email.GmailSender;
 
@@ -26,6 +27,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.Optional;
+import java.util.List;
 
 @Controller
 @RequestMapping("/submission")
@@ -56,10 +58,12 @@ public class SubmissionController {
     @RequestMapping(value = "/submitDocument", method = RequestMethod.GET)
     public String loadSubmitDocument(ModelMap map) {
         User authenticatedUser = userDao.getCurrentAuthenticatedUser();
+        List<User> supervisors = userDao.getUsersByRole("ROLE_SUPERVISOR");
 
         Submission submission = new Submission();
 
         map.addAttribute("submission",submission);
+        map.addAttribute("supervisors", supervisors);
         map.addAttribute("deadlines", deadlineDao.findAllDeadlines());
         map.addAttribute("documents", documentDao.getDocumentsByUsername(authenticatedUser));
 
@@ -70,6 +74,12 @@ public class SubmissionController {
     public String addSubmission(@Valid @ModelAttribute("submission") Submission submission){
         submission.setDate(new Date());
         User authenticatedUser = userDao.getCurrentAuthenticatedUser();
+
+        UserSupervisor userSupervisor = authenticatedUser.getSupervisors().iterator().next();
+        User supervisor = submission.getUser();
+        userSupervisor.setSupervisor(supervisor);
+        userDao.saveUserSupervisor(userSupervisor);
+
         submission.setUser(authenticatedUser);
         submissionDao.saveSubmission(submission);
 
