@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import se.lnu.dao.GradeDao;
 import se.lnu.dao.DocumentDao;
 import se.lnu.dao.SubmissionDao;
 import se.lnu.dao.UserDao;
 import se.lnu.entity.User;
+import se.lnu.entity.Grade;
 import se.lnu.entity.Document;
 import se.lnu.entity.Submission;
 import se.lnu.form.UserForm;
@@ -23,6 +25,7 @@ import se.lnu.service.UserService;
 import se.lnu.validator.SignupValidator;
 
 import java.util.List;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -41,6 +44,9 @@ public class UserController {
 
     @Autowired
     DocumentDao documentDao;
+
+    @Autowired
+    GradeDao gradeDao;
 
     @Autowired
     UserDao userDao;
@@ -69,6 +75,15 @@ public class UserController {
         }
         return model;
     };
+
+    @RequestMapping(value="/grades/{username}", method=RequestMethod.GET)
+    public ModelAndView grade(@PathVariable("username") String username) {
+        ModelAndView model = new ModelAndView("user/grades");
+        User user = userDao.findUserByUsername(username);
+        Collection<Grade> grades = gradeDao.findGradesByUser(user);
+        model.addObject("grades", grades);
+        return model;
+    }
 
     @RequestMapping(value="/submissions", method=RequestMethod.GET)
     public ModelAndView submissions(@ModelAttribute("degree") String degree,

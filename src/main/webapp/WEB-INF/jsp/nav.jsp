@@ -9,40 +9,44 @@
              return this.href == url;
         }).parent().addClass('active');
     });
-</script> 
+</script>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 	<div class="collapse navbar-collapse" id="navbarNavDropdown">
 	    <ul class="nav navbar-nav">
-	    
+
 	      <li class="nav-item">
 	        <a class="nav-link" href='<c:url value="/home" />'>Home</a>
 	      </li>
-	    
+
 	      <li class="nav-item">
 	        <a class="nav-link" href='<c:url value="/logout" />'>Logout</a>
 	      </li>
-	      
+
 	      <li class="nav-item">
 	        <a class="nav-link" href='<c:url value="/user/setAccount/${pageContext.request.userPrincipal.name}"/>'>My Account</a>
 	      </li>
-	      
+
+	      <li class="nav-item">
+	        <a class="nav-link" href='<c:url value="/user/grades/${pageContext.request.userPrincipal.name}"/>'>My Grades</a>
+	      </li>
+
  	  	  <li class="nav-item">
 			<a class="nav-link" href='<c:url value="/user/users" />'>Users</a>
-		  </li> 
-	      
+		  </li>
+
 	      <li class="nav-item">
 	        <a class="nav-link " href='<c:url value="/user/submissions" />'>Submissions</a>
 	      </li>
-	      		      
+
 	      <li class="nav-item">
 	        <a class="nav-link" href='<c:url value="/deadline" />'>Set Deadline</a>
 	      </li>
-	      
+
 	      <li class="nav-item">
 	        <a class="nav-link" href='<c:url value="/grade" />'>Set Grade</a>
 	      </li>
-	      
+
 	      <li class="nav-item">
 	        <a class="nav-link" href='<c:url value="/submission/uploadForm" />'>Upload Document</a>
 	      </li>
@@ -50,7 +54,7 @@
 			<li class="nav-item">
 				<a class="nav-link" href='<c:url value="/submission/submitDocument" />'>Submit Document</a>
 			</li>
-	     
+
 	    </ul>
-  	</div>	
+  	</div>
 </nav>
