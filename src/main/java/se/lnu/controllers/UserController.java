@@ -128,7 +128,7 @@ public class UserController {
 		  ModelAndView model = new ModelAndView("user/account");
 		  model.addObject("user", userService.findUserByUsername(user.getUsername()));
 		  userService.delete(user.getUsername());
-		  return "/";
+		  return "redirect:/user/signup";
 	 }
 
     @RequestMapping(value = "/setGrade/{username}", method = RequestMethod.GET)
