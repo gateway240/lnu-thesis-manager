@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService {
 	 }
 
 	 public void add(String firstname, String lastname, String username, String email, String password, String role) {
+		
 		 userDao.add(firstname, lastname, username, email, passwordEncoder.encode(password), role);
          /*
           * FIXME: this probably shouldn't be here, but there needs to be a

@@ -69,6 +69,7 @@
 		  <div class="form-group">
 		    <label for="password">Password</label>
 		    <input type="text" class="form-control" id="password" name='password' placeholder="Enter Password">
+		    
 		  </div>
 		  
 	  	  <div class="checkbox">

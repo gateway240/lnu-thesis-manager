@@ -62,19 +62,19 @@
 		  <div class="form-group">
 		    <label for="firstname">First Name</label>
 		    <form:input path="firstname" type="text" class="form-control" name="firstname" />
-		    <form:errors path="firstname" />
+		    <form:errors path="firstname" cssClass="error" element="div" />
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="lastname">Last Name</label>
 		    <form:input path="lastname" type="text" class="form-control" name="lastname" />
-		    <form:errors path="lastname" />
+		    <form:errors path="lastname" cssClass="error" element="div" />
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="username">Username (on Slack)</label>
 		    <form:input path="username" type="text" class="form-control" name="username" />
-		    <form:errors path="username" />
+		    <form:errors path="username" cssClass="error" element="div" />
 		  </div>
 		  
 		  <div class="form-group">
@@ -89,19 +89,19 @@
 		  <div class="form-group">
 		    <label for=email>Email</label>
 		    <form:input path="email" type="text" class="form-control" name="email" />
-		    <form:errors path="email" />
+		    <form:errors path="email" cssClass="error" element="div" />
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="password">Password</label>
 		    <form:password path="password" class="form-control" />
-  			<form:errors path="password" />
+  			<form:errors path="password" cssClass="error" element="div" />
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="password">Confirm Password</label>
 		    <form:password path="confirmPassword" class="form-control" />
-  			<form:errors path="confirmPassword" />
+  			<form:errors path="confirmPassword" cssClass="error" element="div" />
 		  </div>
 
 		  <input type="submit" value="Submit" class="btn btn-primary"/>
